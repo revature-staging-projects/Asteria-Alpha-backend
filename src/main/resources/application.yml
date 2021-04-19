@@ -1,0 +1,15 @@
+
+spring:
+  application:
+    name: Asteria-Alpha
+  datasource:
+    platform: postgres
+    url: ${asteria_db}
+    username: ${asteria_username}
+    password: ${asteria_password}
+    driver-ClassName: org.postgresql.Driver
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQL82Dialect
+    show-sql: true
+    hibernate:
+      ddl-auto: validate
