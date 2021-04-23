@@ -2,10 +2,12 @@ package com.revature.models;
 
 import org.springframework.stereotype.Component;
 
+import javax.persistence.Table;
 import java.time.LocalDate;
 import java.util.Objects;
 
 @Component
+@Table(name = "Mars_Weather")
 public class MarsWeather {
     int sol;
 
