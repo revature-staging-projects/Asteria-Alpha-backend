@@ -1,6 +1,7 @@
 package com.revature.controllers;
 
 
+import com.revature.models.MarsWeather;
 import com.revature.service.MarsWeatherService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

@@ -1,5 +1,6 @@
 package com.revature.service;
 
+import com.revature.models.MarsWeather;
 import com.revature.repositories.MarsWeatherRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,6 +16,10 @@ public class MarsWeatherService {
         this.marswr = marswr;
     }
 
+
+
+    private MarsWeather getWeatherFromApi() {
+    }
 
     private MarsWeather compareSolDates(final MarsWeather marsw_db) {
         final MarsWeather new_weather = getWeatherFromApi();
