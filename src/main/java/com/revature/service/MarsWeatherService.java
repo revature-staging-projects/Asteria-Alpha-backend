@@ -4,6 +4,7 @@ import com.revature.models.MarsWeather;
 import com.revature.repositories.MarsWeatherRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.reactive.function.client.WebClient;
 
 import java.time.LocalDate;
 
@@ -19,6 +20,12 @@ public class MarsWeatherService {
 
 
     private MarsWeather getWeatherFromApi() {
+        String url = "https://api.nasa.gov/insight_weather/?api_key=qhkaWwIpbcmhbAR6z4MRbd4fHuNkjd0jLog3eHez&feedtype=json&ver=1.0";
+        return WebClient.create(url)
+               .get()
+               .retrieve()
+               .bodyToMono(MarsWeather.class)
+               .blockOptional().orElseThrow(RuntimeException::new);
     }
 
     private MarsWeather compareSolDates(final MarsWeather marsw_db) {
@@ -34,11 +41,11 @@ public class MarsWeatherService {
         if(today.isEqual(marsw_db.getStamp())) {
             return marsw_db;
         }
-        return compareSolDates(marsw_db)
+        return compareSolDates(marsw_db);
     }
 
     public MarsWeather getWeather() {
-        return compareWeatherDates(marswr.getWeather())
+        return compareWeatherDates(marswr.getWeather());
     }
 
 }
