@@ -3,12 +3,16 @@ package com.revature.repositories;
 import com.revature.models.MarsWeather;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.CrudRepository;
 
-public interface MarsWeatherRepo  extends JpaRepository<MarsWeather,Integer> {
+import java.util.List;
 
-    @Query(value = "SELECT * FROM Mars_weather",nativeQuery = true)
-    MarsWeather getWeather();
+public interface MarsWeatherRepo  extends CrudRepository<MarsWeather,Integer> {
 
-    void update(final MarsWeather marsw);
+    List<MarsWeather> findAll();
+
+    void delete(final MarsWeather marsw);
+
+    Object save(final MarsWeather marsw);
 
 }
