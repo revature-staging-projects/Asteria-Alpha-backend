@@ -1,6 +1,7 @@
 package com.revature.controllers;
 
 import com.revature.dto.ImageCollectionDTO;
+import com.revature.dto.NasaImageDTO;
 import com.revature.models.NasaImage;
 import com.revature.service.NasaImageService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +25,7 @@ public class NasaImageController {
 
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.I_AM_A_TEAPOT)
-    public ImageCollectionDTO getNasaImage() {
+    public NasaImageDTO getNasaImage() {
         return nasa_image_service.getCollection();
         //return nasa_image_service.getNasaImage();
 
