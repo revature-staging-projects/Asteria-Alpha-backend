@@ -22,6 +22,7 @@ public class NasaImageService {
     private final NasaImageRepo nasa_image_repo;
     private int count = 0;
     private final String[] search_terms = {"apollo","gemini","space","planets","solar system","satellites","galaxies"};
+    private final String[] filter_terms = {"induction","hall of fame","stem","STEM","Inductee","teacher training","ceremony","Kennedy Center for the Performing Arts","CEREMONIES","Apollo 40th Anniversary","U.S. Senator"};
     private final Random rand = new Random();
 
     @Autowired
@@ -32,15 +33,15 @@ public class NasaImageService {
 
 
     private boolean checkContainsKeyword(final List<String> keywords) {
-        final String[] check = {"induction","hall of fame","stem","STEM","Inductee","teacher training","ceremony","Kennedy Center for the Performing Arts","CEREMONIES","Apollo 40th Anniversary"};
         if(keywords != null) {
-            for (String check_for : check) {
-                if (keywords.contains(check_for)) {
+            for (String check : filter_terms) {
+                if (keywords.contains(check)) {
                     return true;
                 }
             }
+            return false;
         }
-        return false;
+        return true;
     }
 
     private boolean checkString(final String str) {
