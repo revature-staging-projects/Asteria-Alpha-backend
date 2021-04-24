@@ -1,9 +1,16 @@
 package com.revature.dto;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+import java.util.List;
+
 public class DataObject {
 
     String title;
     String description;
+    @JsonProperty("keywords")
+    List<String> keywords;
+
 
     public DataObject() {
         super();
@@ -23,5 +30,13 @@ public class DataObject {
 
     public void setDescription(final String description) {
         this.description = description;
+    }
+
+    public List<String> getKeywords() {
+        return keywords;
+    }
+
+    public void setKeywords(final List<String> keywords) {
+        this.keywords = keywords;
     }
 }

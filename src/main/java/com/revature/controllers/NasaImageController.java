@@ -25,9 +25,8 @@ public class NasaImageController {
 
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.I_AM_A_TEAPOT)
-    public NasaImageDTO getNasaImage() {
-        return nasa_image_service.getCollection();
-        //return nasa_image_service.getNasaImage();
+    public NasaImage getNasaImage() {
+        return nasa_image_service.getImage();
 
     }
 
