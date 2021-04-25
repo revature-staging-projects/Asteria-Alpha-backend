@@ -10,6 +10,7 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
@@ -33,15 +34,11 @@ public class NasaImageService {
 
 
     private boolean checkContainsKeyword(final List<String> keywords) {
+        boolean checked = false;
         if(keywords != null) {
-            for (String check : filter_terms) {
-                if (keywords.contains(check)) {
-                    return true;
-                }
-            }
-            return false;
+            checked = Arrays.stream(filter_terms).anyMatch(keywords::contains);
         }
-        return true;
+        return checked;
     }
 
     private boolean checkString(final String str) {
