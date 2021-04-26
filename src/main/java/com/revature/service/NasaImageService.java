@@ -73,7 +73,7 @@ public class NasaImageService {
     }
 
    @Scheduled(fixedRate = 86400000)
-    public void setCollection() {
+    private void setCollection() {
         final String search_term = search_terms[rand.nextInt(search_terms.length)];
         final String url = "https://images-api.nasa.gov/search?q=" + search_term + "&media_type=image&page=10";
         final NasaImageDTO dto = WebClient.create(url).get().retrieve().bodyToMono(NasaImageDTO.class).blockOptional().orElseThrow(RuntimeException::new);
