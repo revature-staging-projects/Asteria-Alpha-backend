@@ -1,12 +1,11 @@
 package com.revature.models;
 
-
 import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
-@Table(name = "Image")
-public class NasaImage {
+@Table(name = "Fav_Image")
+public class FavNasaImage {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -21,10 +20,8 @@ public class NasaImage {
     @Column(name = "url")
     String url;
 
-    public NasaImage() {
-        super();
+    public FavNasaImage() {
     }
-
 
     public int getId() {
         return id;
@@ -54,29 +51,21 @@ public class NasaImage {
         return url;
     }
 
-    public void setLink(final String link) {
-        this.url = link;
+    public void setLink(final String url) {
+        this.url = url;
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        NasaImage nasaImage = (NasaImage) o;
-        return id == nasaImage.id && title.equals(nasaImage.title) && description.equals(nasaImage.description) && url.equals(nasaImage.url);
+        if (!super.equals(o)) return false;
+        FavNasaImage that = (FavNasaImage) o;
+        return id == that.id && title.equals(that.title) && description.equals(that.description) && url.equals(that.url);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, title, description, url);
-    }
-
-    @Override
-    public String toString() {
-        return "NasaImage{" +
-                "title='" + title + '\'' +
-                ", description='" + description + '\'' +
-                ", link='" + url + '\'' +
-                '}';
+        return Objects.hash(super.hashCode(), id, title, description, url);
     }
 }

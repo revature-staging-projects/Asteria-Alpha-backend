@@ -2,7 +2,9 @@ package com.revature.service;
 
 import com.revature.dto.ImageItems;
 import com.revature.dto.NasaImageDTO;
+import com.revature.models.FavNasaImage;
 import com.revature.models.NasaImage;
+import com.revature.repositories.FavoriteImageRepo;
 import com.revature.repositories.NasaImageRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.EnableScheduling;
@@ -21,24 +23,27 @@ import java.util.Random;
 public class NasaImageService {
 
     private final NasaImageRepo nasa_image_repo;
+    private final FavoriteImageRepo fav_image_repo;
     private int count = 0;
-    private final String[] search_terms = {"apollo","gemini","space","planets","solar system","satellites","galaxies"};
-    private final String[] filter_terms = {"induction","hall of fame","stem","STEM","Inductee","teacher training","ceremony","Kennedy Center for the Performing Arts","CEREMONIES","Apollo 40th Anniversary","U.S. Senator"};
+    private final String[] search_terms = {"Spectators","apollo","gemini","space","planets","solar system","satellites","galaxies","space shuttle"};
+    private final List<String> filter_terms = Arrays.asList(
+            "groundbreaking","induction","hall of fame","stem","STEM","Inductee","teacher training",
+            "ceremony","Kennedy Center for the Performing Arts","CEREMONIES","Apollo 40th Anniversary","U.S. Senator","U.S. Congresswoman","U.S. Congressman");
     private final Random rand = new Random();
 
     @Autowired
-    public NasaImageService(NasaImageRepo nasa_image_repo) {
+    public NasaImageService(final NasaImageRepo nasa_image_repo, final FavoriteImageRepo fav_image_repo) {
         this.nasa_image_repo = nasa_image_repo;
+        this.fav_image_repo = fav_image_repo;
     }
 
 
 
     private boolean checkContainsKeyword(final List<String> keywords) {
-        boolean checked = false;
         if(keywords != null) {
-            checked = Arrays.stream(filter_terms).anyMatch(keywords::contains);
+             return keywords.parallelStream().anyMatch(filter_terms::contains);
         }
-        return checked;
+        return false;
     }
 
     private boolean checkString(final String str) {
@@ -67,18 +72,44 @@ public class NasaImageService {
             return images;
     }
 
-   @Scheduled(fixedRate = 259200000)
+   @Scheduled(fixedRate = 86400000)
     public void setCollection() {
         final String search_term = search_terms[rand.nextInt(search_terms.length)];
         final String url = "https://images-api.nasa.gov/search?q=" + search_term + "&media_type=image&page=10";
         final NasaImageDTO dto = WebClient.create(url).get().retrieve().bodyToMono(NasaImageDTO.class).blockOptional().orElseThrow(RuntimeException::new);
-        nasa_image_repo.resetCounter();
-        nasa_image_repo.truncateDB();
-        nasa_image_repo.saveAll(parseImageDTOIntoNasaImageObjectList(dto));
+        final List<NasaImage> images = parseImageDTOIntoNasaImageObjectList(dto);
+        if(images.size() > 10) {
+            nasa_image_repo.resetCounter();
+            nasa_image_repo.truncateDB();
+            nasa_image_repo.saveAll(images);
+        }
+        else {
+            setCollection();
+            }
     }
 
     public NasaImage getImage() {
         return nasa_image_repo.findById(rand.nextInt( count - 1) + 1).orElseThrow(RuntimeException::new);
+    }
+
+
+    public void addImageToFavorites(final int user_id,final int img_id,final String url) {
+        List<FavNasaImage> images = fav_image_repo.findByUrl(url);
+        if(images == null || images.size() == 0) {
+            final NasaImage image = nasa_image_repo.findById(img_id).orElseThrow(RuntimeException::new);
+            final FavNasaImage fav_img = convertNasaToFav(image);
+            fav_image_repo.save(fav_img);
+            images = fav_image_repo.findByUrl(url);
+        }
+        fav_image_repo.updateFavoriteImageReferences(user_id,images.get(0).getId());
+    }
+
+    private FavNasaImage convertNasaToFav(final NasaImage image) {
+        final FavNasaImage fav = new FavNasaImage();
+        fav.setDescription(image.getDescription());
+        fav.setLink(image.getLink());
+        fav.setTitle(image.getTitle());
+        return fav;
     }
 
 }
