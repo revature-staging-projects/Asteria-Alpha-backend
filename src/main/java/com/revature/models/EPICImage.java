@@ -1,5 +1,7 @@
 package com.revature.models;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import javax.persistence.*;
 import java.util.Objects;
 
@@ -12,13 +14,16 @@ public class EPICImage {
     private int id;
 
     @Column(name = "caption")
+    @JsonProperty("caption")
     private String caption;
 
     @Column(name = "image_title")
-    private String image_title;
+    @JsonProperty("image")
+    private String image;
 
-    @Column(name = "date")
-    private String image_date;
+    @Column(name = "image_date")
+    @JsonProperty("date")
+    private String date;
 
     public String getCaption() {
         return caption;
@@ -29,19 +34,20 @@ public class EPICImage {
     }
 
     public String getImage_title() {
-        return image_title;
+        return image;
     }
 
     public void setImage_title(final String image_title) {
-        this.image_title = image_title;
+        this.image = image_title;
     }
 
     public String getImage_date() {
-        return image_date;
+        return date;
     }
 
     public void setImage_date(final String image_date) {
-        this.image_date = image_date;
+        this.date = image_date.replaceAll("-","/");
+        this.date = date.substring(0,date.indexOf(" "));
     }
 
     @Override
@@ -49,11 +55,21 @@ public class EPICImage {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         EPICImage epicImage = (EPICImage) o;
-        return caption.equals(epicImage.caption) && image_title.equals(epicImage.image_title) && image_date.equals(epicImage.image_date);
+        return caption.equals(epicImage.caption) && image.equals(epicImage.image) && date.equals(epicImage.date);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(caption, image_title, image_date);
+        return Objects.hash(caption, image, date);
+    }
+
+    @Override
+    public String toString() {
+        return "EPICImage{" +
+                "id=" + id +
+                ", caption='" + caption + '\'' +
+                ", image='" + image + '\'' +
+                ", date='" + date + '\'' +
+                '}';
     }
 }
