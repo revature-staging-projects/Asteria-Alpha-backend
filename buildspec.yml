@@ -15,5 +15,5 @@ phases:
       - echo Build completed
 artifacts:
   files:
-    - target/SpoiledBeans-1.0-SNAPSHOT.jar
+    - target/Asteria-Alpha-Backend.jar
     - scripts/*
