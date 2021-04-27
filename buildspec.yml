@@ -15,5 +15,5 @@ phases:
       - echo Build completed
 artifacts:
   files:
-    - target/Asteria-Alpha-Backend.jar
+    - target/Asteria-Alpha-Backend-1.0-SNAPSHOT.jar
     - scripts/*
