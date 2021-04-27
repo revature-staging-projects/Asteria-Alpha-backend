@@ -4,6 +4,7 @@ import com.revature.models.EPICImage;
 import com.revature.repositories.EPICRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 
@@ -19,11 +20,12 @@ public class EPICService {
         this.epic_repo = epic_repo;
     }
 
-    public EPICImage getEpicImage() {
+    public EPICImage getEpicImageMetadata() {
         return epic_repo.findById(1).orElseThrow(RuntimeException::new);
     }
 
-    public void getDailyImage() {
+    @Scheduled(fixedRate = 86400000)
+    private void getDailyImage() {
         final String url = "https://epic.gsfc.nasa.gov/api/natural";
         final EPICImage[] dto = WebClient.create(url)
                 .get()

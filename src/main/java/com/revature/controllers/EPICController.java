@@ -20,9 +20,8 @@ public class EPICController {
 
 
     @GetMapping(path = "/epic", produces = MediaType.APPLICATION_JSON_VALUE)
-    public void getEpicImage() {
-        epic_service.getDailyImage();
-        //return epic_service.getEpicImage();
+    public EPICImage getEpicImage() {
+        return epic_service.getEpicImageMetadata();
     }
 
 

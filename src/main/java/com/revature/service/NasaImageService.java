@@ -72,7 +72,7 @@ public class NasaImageService {
             return images;
     }
 
-   //@Scheduled(fixedRate = 86400000)
+   @Scheduled(fixedRate = 86400000)
     private void setCollection() {
         final String search_term = search_terms[rand.nextInt(search_terms.length)];
         final String url = "https://images-api.nasa.gov/search?q=" + search_term + "&media_type=image&page=10";
