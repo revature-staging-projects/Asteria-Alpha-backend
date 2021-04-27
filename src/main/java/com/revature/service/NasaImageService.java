@@ -25,6 +25,7 @@ public class NasaImageService {
     private final NasaImageRepo nasa_image_repo;
     private final FavoriteImageRepo fav_image_repo;
     private int count = 0;
+    private int old_count = 0;
     private final String[] search_terms = {"Spectators","apollo","gemini","space","planets","solar system","satellites","galaxies","space shuttle"};
     private final List<String> filter_terms = Arrays.asList(
             "groundbreaking","induction","hall of fame","stem","STEM","Inductee","teacher training",
@@ -56,7 +57,6 @@ public class NasaImageService {
 
     private List<NasaImage> parseImageDTOIntoNasaImageObjectList(final NasaImageDTO dto) {
         final List<NasaImage> images = new LinkedList<>();
-        count = 0;
         for(ImageItems item: dto.getCollection().getItems()) {
             if(!checkContainsKeyword(item.getData().get(0).getKeywords())) {
                 final NasaImage image = new NasaImage();
@@ -72,20 +72,32 @@ public class NasaImageService {
             return images;
     }
 
-   @Scheduled(fixedRate = 86400000)
-    private void setCollection() {
+    private List<NasaImage> getListOfImages() {
         final String search_term = search_terms[rand.nextInt(search_terms.length)];
+        System.out.println("\n\n\n==================\n\n\n Search term is: " + search_term);
         final String url = "https://images-api.nasa.gov/search?q=" + search_term + "&media_type=image&page=10";
         final NasaImageDTO dto = WebClient.create(url).get().retrieve().bodyToMono(NasaImageDTO.class).blockOptional().orElseThrow(RuntimeException::new);
         final List<NasaImage> images = parseImageDTOIntoNasaImageObjectList(dto);
         if(images.size() > 10) {
-            nasa_image_repo.resetCounter();
-            nasa_image_repo.truncateDB();
-            nasa_image_repo.saveAll(images);
+            old_count = count;
+            return images;
         }
         else {
-            setCollection();
-            }
+            count = old_count;
+            return getListOfImages();
+        }
+
+    }
+
+   @Scheduled(fixedRate = 86400000)
+    private void setCollection() {
+        nasa_image_repo.resetCounter();
+        nasa_image_repo.truncateDB();
+        count = 0;
+        old_count = 0;
+        for (int i = 0; i < 2; i++) {
+            nasa_image_repo.saveAll(getListOfImages());
+        }
     }
 
     public NasaImage getImage() {
