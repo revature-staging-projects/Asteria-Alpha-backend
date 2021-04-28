@@ -51,7 +51,8 @@ public class NasaImageService {
 
     private boolean checkContainsKeyword(final List<String> keywords) {
         if(keywords != null) {
-             return keywords.parallelStream().anyMatch(filter_terms::contains);
+             return ((keywords.size() == 1)? Arrays.asList(keywords.get(0).split(",")) : keywords)
+                     .parallelStream().anyMatch(filter_terms::contains);
         }
         return false;
     }
