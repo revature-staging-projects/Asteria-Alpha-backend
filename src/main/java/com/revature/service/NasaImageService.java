@@ -28,7 +28,7 @@ public class NasaImageService {
     private int old_count = 0;
     private final String[] search_terms =
             {
-                "apollo","gemini","space","planets",
+                "apollo","gemini","space","planets","rocket",
                 "solar system","satellites","galaxies","space shuttle"
             };
 
