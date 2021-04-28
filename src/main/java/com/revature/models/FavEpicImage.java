@@ -6,9 +6,8 @@ import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
-@Table(name = "EPIC_Image")
-public class EPICImage {
-
+@Table(name = "Fav_Epic_Image")
+public class FavEpicImage {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
@@ -26,24 +25,24 @@ public class EPICImage {
     private String date;
 
     public String getCaption() {
-        return caption;
-    }
+                             return caption;
+                                            }
 
     public void setCaption(final String caption) {
-        this.caption = caption;
-    }
+                                               this.caption = caption;
+                                                                      }
 
     public String getImage_title() {
-        return image;
-    }
+                                 return image;
+                                              }
 
     public void setImage_title(final String image_title) {
-        this.image = image_title;
-    }
+                                                       this.image = image_title;
+                                                                                }
 
     public String getImage_date() {
-        return date;
-    }
+                                return date;
+                                            }
 
     public void setImage_date(final String image_date) {
         this.date = image_date.replaceAll("-","/");
@@ -62,13 +61,13 @@ public class EPICImage {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        EPICImage epicImage = (EPICImage) o;
-        return caption.equals(epicImage.caption) && image.equals(epicImage.image) && date.equals(epicImage.date);
+        FavEpicImage that = (FavEpicImage) o;
+        return id == that.id && caption.equals(that.caption) && image.equals(that.image) && date.equals(that.date);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(caption, image, date);
+        return Objects.hash(id, caption, image, date);
     }
 
     @Override
