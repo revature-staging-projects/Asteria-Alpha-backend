@@ -37,7 +37,7 @@ public class NasaImageService {
                 "groundbreaking","induction","hall of fame","stem","STEM","Inductee","teacher training",
                 "ceremony","Kennedy Center for the Performing Arts","CEREMONIES","Apollo 40th Anniversary","U.S. Senator",
                 "U.S. Congresswoman","U.S. Congressman","NASA Administrator","Space Symposium","All Hands Meeting",
-                "U.S. Vice President","Spectators"
+                "U.S. Vice President","Spectators","50th anniversary"
             );
     private final Random rand = new Random();
 
