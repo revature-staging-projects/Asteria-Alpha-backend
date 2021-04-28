@@ -26,10 +26,19 @@ public class NasaImageService {
     private final FavoriteImageRepo fav_image_repo;
     private int count = 0;
     private int old_count = 0;
-    private final String[] search_terms = {"U.S. Vice President","Spectators","apollo","gemini","space","planets","solar system","satellites","galaxies","space shuttle"};
-    private final List<String> filter_terms = Arrays.asList(
-            "groundbreaking","induction","hall of fame","stem","STEM","Inductee","teacher training",
-            "ceremony","Kennedy Center for the Performing Arts","CEREMONIES","Apollo 40th Anniversary","U.S. Senator","U.S. Congresswoman","U.S. Congressman");
+    private final String[] search_terms =
+            {
+                "apollo","gemini","space","planets",
+                "solar system","satellites","galaxies","space shuttle"
+            };
+
+    private final List<String> filter_terms = Arrays.asList
+            (
+                "groundbreaking","induction","hall of fame","stem","STEM","Inductee","teacher training",
+                "ceremony","Kennedy Center for the Performing Arts","CEREMONIES","Apollo 40th Anniversary","U.S. Senator",
+                "U.S. Congresswoman","U.S. Congressman","NASA Administrator","Space Symposium","All Hands Meeting",
+                "U.S. Vice President","Spectators"
+            );
     private final Random rand = new Random();
 
     @Autowired
@@ -74,7 +83,7 @@ public class NasaImageService {
 
     private List<NasaImage> getListOfImages() {
         final String search_term = search_terms[rand.nextInt(search_terms.length)];
-        System.out.println("\n\n\n==================\n\n\n Search term is: " + search_term);
+        System.out.println("\n\n\n==================\nSearch term is: " + search_term + "\n\n\n");
         final String url = "https://images-api.nasa.gov/search?q=" + search_term + "&media_type=image&page=10";
         final NasaImageDTO dto = WebClient.create(url).get().retrieve().bodyToMono(NasaImageDTO.class).blockOptional().orElseThrow(RuntimeException::new);
         final List<NasaImage> images = parseImageDTOIntoNasaImageObjectList(dto);
