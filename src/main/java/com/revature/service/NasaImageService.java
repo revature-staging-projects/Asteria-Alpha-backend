@@ -37,7 +37,7 @@ public class NasaImageService {
                 "groundbreaking","induction","hall of fame","stem","STEM","Inductee","teacher training",
                 "ceremony","Kennedy Center for the Performing Arts","CEREMONIES","Apollo 40th Anniversary","U.S. Senator",
                 "U.S. Congresswoman","U.S. Congressman","NASA Administrator","Space Symposium","All Hands Meeting",
-                "U.S. Vice President","Spectators","50th anniversary"
+                "U.S. Vice President","Spectators","50th anniversary","Apollo 11 50th Anniversary", "National Symphony Orchestra"
             );
     private final Random rand = new Random();
 
@@ -85,7 +85,7 @@ public class NasaImageService {
     private List<NasaImage> getListOfImages() {
         final String search_term = search_terms[rand.nextInt(search_terms.length)];
         System.out.println("\n\n\n==================\nSearch term is: " + search_term + "\n\n\n");
-        final String url = "https://images-api.nasa.gov/search?q=" + search_term + "&media_type=image&page=10";
+        final String url = "https://images-api.nasa.gov/search?q=" + search_term + "&media_type=image&page=15";
         final NasaImageDTO dto = WebClient.create(url).get().retrieve().bodyToMono(NasaImageDTO.class).blockOptional().orElseThrow(RuntimeException::new);
         final List<NasaImage> images = parseImageDTOIntoNasaImageObjectList(dto);
         if(images.size() > 10) {
