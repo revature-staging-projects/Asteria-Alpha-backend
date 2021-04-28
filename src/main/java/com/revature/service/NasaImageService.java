@@ -26,7 +26,7 @@ public class NasaImageService {
     private final FavoriteImageRepo fav_image_repo;
     private int count = 0;
     private int old_count = 0;
-    private final String[] search_terms = {"Spectators","apollo","gemini","space","planets","solar system","satellites","galaxies","space shuttle"};
+    private final String[] search_terms = {"U.S. Vice President","Spectators","apollo","gemini","space","planets","solar system","satellites","galaxies","space shuttle"};
     private final List<String> filter_terms = Arrays.asList(
             "groundbreaking","induction","hall of fame","stem","STEM","Inductee","teacher training",
             "ceremony","Kennedy Center for the Performing Arts","CEREMONIES","Apollo 40th Anniversary","U.S. Senator","U.S. Congresswoman","U.S. Congressman");
