@@ -12,10 +12,7 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 
-import java.util.Arrays;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 
 
 @Service
@@ -26,19 +23,20 @@ public class NasaImageService {
     private final FavoriteImageRepo fav_image_repo;
     private int count = 0;
     private int old_count = 0;
-    private final String[] search_terms =
-            {
+    private final List<String> search_terms = Collections.unmodifiableList(Arrays.asList
+            (
                 "apollo","gemini","space","planets","rocket",
                 "solar system","satellites","galaxies","space shuttle"
-            };
+            ));
 
-    private final List<String> filter_terms = Arrays.asList
+    private final List<String> filter_terms = Collections.unmodifiableList(Arrays.asList
             (
                 "groundbreaking","induction","hall of fame","stem","STEM","Inductee","teacher training",
                 "ceremony","Kennedy Center for the Performing Arts","CEREMONIES","Apollo 40th Anniversary","U.S. Senator",
                 "U.S. Congresswoman","U.S. Congressman","NASA Administrator","Space Symposium","All Hands Meeting",
                 "U.S. Vice President","Spectators","50th anniversary","Apollo 11 50th Anniversary", "National Symphony Orchestra"
-            );
+            ));
+
     private final Random rand = new Random();
 
     @Autowired
@@ -83,7 +81,7 @@ public class NasaImageService {
     }
 
     private List<NasaImage> getListOfImages() {
-        final String search_term = search_terms[rand.nextInt(search_terms.length)];
+        final String search_term = search_terms.get(rand.nextInt(search_terms.size());
         System.out.println("\n\n\n==================\nSearch term is: " + search_term + "\n\n\n");
         final String url = "https://images-api.nasa.gov/search?q=" + search_term + "&media_type=image&page=15";
         final NasaImageDTO dto = WebClient.create(url).get().retrieve().bodyToMono(NasaImageDTO.class).blockOptional().orElseThrow(RuntimeException::new);
