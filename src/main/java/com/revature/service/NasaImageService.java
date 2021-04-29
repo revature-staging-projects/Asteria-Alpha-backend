@@ -81,7 +81,7 @@ public class NasaImageService {
     }
 
     private List<NasaImage> getListOfImages() {
-        final String search_term = search_terms.get(rand.nextInt(search_terms.size());
+        final String search_term = search_terms.get(rand.nextInt(search_terms.size()));
         System.out.println("\n\n\n==================\nSearch term is: " + search_term + "\n\n\n");
         final String url = "https://images-api.nasa.gov/search?q=" + search_term + "&media_type=image&page=15";
         final NasaImageDTO dto = WebClient.create(url).get().retrieve().bodyToMono(NasaImageDTO.class).blockOptional().orElseThrow(RuntimeException::new);
