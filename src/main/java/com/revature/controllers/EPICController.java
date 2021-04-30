@@ -29,6 +29,7 @@ public class EPICController {
 
     @GetMapping(path = "/epicfavorite", produces = MediaType.APPLICATION_JSON_VALUE)
     public List<FavEpicImage> getFavEpicImage() {
+        //TODO change to get current user id
         return epic_service.getFavImages(1);
     }
 

@@ -132,4 +132,9 @@ public class NasaImageService {
         return fav;
     }
 
+
+    public List<NasaImage> getFavImage(final int user) {
+        return fav_image_repo.getUserFavoriteImages(user);
+    }
+
 }

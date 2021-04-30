@@ -7,6 +7,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 public class NasaImageController {
 
@@ -30,5 +32,10 @@ public class NasaImageController {
         nasa_image_service.addImageToFavorites(1,id,url);
     }
 
+    @GetMapping(path = "/getnasafavorite", produces = MediaType.APPLICATION_JSON_VALUE)
+    public List<NasaImage> getFavNasaImage() {
+        //TODO cahnge to get current user id.
+        return nasa_image_service.getFavImage(1);
+    }
 
 }
