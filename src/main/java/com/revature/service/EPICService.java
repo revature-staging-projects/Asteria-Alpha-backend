@@ -2,7 +2,6 @@ package com.revature.service;
 
 import com.revature.models.EPICImage;
 import com.revature.models.FavEpicImage;
-import com.revature.models.FavNasaImage;
 import com.revature.repositories.EPICRepo;
 import com.revature.repositories.FavEPICRepo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +10,6 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 
-import java.util.Arrays;
 import java.util.List;
 
 @Service
@@ -60,6 +58,10 @@ public class EPICService {
             db_images = fav_epic_repo.findByTitle(image.getImage_title());
         }
         fav_epic_repo.updateRefTable(1,db_images.get(0).getId());
+    }
+
+    public List<FavEpicImage> getFavImages(final int user) {
+        return fav_epic_repo.getUserFavoriteImages(user);
     }
 
 }
