@@ -6,6 +6,8 @@ import com.revature.service.EPICService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
@@ -30,5 +32,9 @@ public class EPICController {
         return epic_service.getFavImages(1);
     }
 
+    @PutMapping(path = "/addepicfavorite", consumes = MediaType.APPLICATION_JSON_VALUE)
+    public void addepicfavorite(@RequestBody final FavEpicImage image) {
+        epic_service.addEPICImageToFavorites(image);
+    }
 
 }

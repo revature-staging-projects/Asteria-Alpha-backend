@@ -43,18 +43,10 @@ public class EPICService {
     }
 
 
-    private FavEpicImage parseEpicImageIntoFav(final EPICImage image) {
-        final FavEpicImage fav_image = new FavEpicImage();
-        fav_image.setImage_date(image.getImage_date());
-        fav_image.setImage_title(image.getImage_title());
-        fav_image.setCaption(image.getCaption());
-        return fav_image;
-    }
-
-    public void addEPICImageToFavorites(final EPICImage image) {
+    public void addEPICImageToFavorites(final FavEpicImage image) {
         List<FavEpicImage> db_images = fav_epic_repo.findByTitle(image.getImage_title());
         if(db_images == null || db_images.size() < 1) {
-            fav_epic_repo.save(parseEpicImageIntoFav(image));
+            fav_epic_repo.save(image);
             db_images = fav_epic_repo.findByTitle(image.getImage_title());
         }
         fav_epic_repo.updateRefTable(1,db_images.get(0).getId());
