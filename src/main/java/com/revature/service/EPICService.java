@@ -44,10 +44,10 @@ public class EPICService {
 
 
     public void addEPICImageToFavorites(final FavEpicImage image) {
-        List<FavEpicImage> db_images = fav_epic_repo.findByTitle(image.getImage_title());
+        List<FavEpicImage> db_images = fav_epic_repo.findByImage(image.getImage_title());
         if(db_images == null || db_images.size() < 1) {
             fav_epic_repo.save(image);
-            db_images = fav_epic_repo.findByTitle(image.getImage_title());
+            db_images = fav_epic_repo.findByImage(image.getImage_title());
         }
         fav_epic_repo.updateRefTable(1,db_images.get(0).getId());
     }
