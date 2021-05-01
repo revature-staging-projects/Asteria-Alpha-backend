@@ -13,9 +13,9 @@ import java.util.List;
 public interface FavEPICRepo extends CrudRepository<FavEpicImage,Integer> {
 
         @Query(value = "select * from Fav_Epic_Image \n" +
-                "join  Fav_Epic_Ref as ref on id = ref.img_id\n" +
-                "join Users as users on ref.user_id = users.id where users.id = :id",nativeQuery = true)
-        List<FavEpicImage> getUserFavoriteImages(final Integer id);
+                "join  Fav_Epic_Ref as refs on id = refs.img_id\n" +
+                "join Users as users on refs.user_id = users.id where users.username = :username",nativeQuery = true)
+        List<FavEpicImage> getUserFavoriteImages(final String username);
 
         @Modifying
         @Transactional

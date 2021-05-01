@@ -22,8 +22,8 @@ public interface FavoriteImageRepo extends CrudRepository<FavNasaImage,Integer> 
     void updateFavoriteImageReferences(final Integer user_id, final Integer img_id);
 
     @Query(value = "select * from fav_image \n" +
-            "join  Fav_Img_Ref as ref on id = ref.img_id\n" +
-            "join Users as users on ref.user_id = users.id where users.id = :id",nativeQuery = true)
-    List<NasaImage> getUserFavoriteImages(final Integer id);
+            "join  Fav_Img_Ref as refs on id = refs.img_id\n" +
+            "join Users as users on refs.user_id = users.id where users.username = :username",nativeQuery = true)
+    List<NasaImage> getUserFavoriteImages(final String username);
 
 }
