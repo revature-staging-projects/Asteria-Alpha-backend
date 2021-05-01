@@ -19,8 +19,9 @@ public interface FavEPICRepo extends CrudRepository<FavEpicImage,Integer> {
 
         @Modifying
         @Transactional
-        @Query(value = "insert into Fav_Epic_Ref (user_id,img_id) values (:user_id,:img_id)", nativeQuery = true)
-        void updateRefTable(final Integer user_id, final Integer img_id);
+        @Query(value = "insert into fav_epic_ref (user_id,img_id)\n" +
+                " select u.id,img.id from users as u, fav_epic_image as img where u.username =:username and img.image_date = :date", nativeQuery = true)
+        void updateRefTable(final String username,final String date);
 
         List<FavEpicImage> findByImage(final String title);
 }

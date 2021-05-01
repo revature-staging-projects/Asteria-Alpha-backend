@@ -45,7 +45,7 @@ public class EPICController {
     public void addepicfavorite(@RequestBody final FavEpicImage image,final HttpServletRequest request) {
         final String token      = jwt_parser.getTokenFromHeader(request);
         final PrincipalDTO user = jwt_parser.parseToken(token);
-        epic_service.addEPICImageToFavorites(image,user.getUsername());
+        epic_service.addEPICImageToFavorites(user.getUsername(),image.getImage_date());
     }
 
 }

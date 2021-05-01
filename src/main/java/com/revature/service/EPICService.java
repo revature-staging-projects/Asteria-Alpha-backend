@@ -1,6 +1,6 @@
 package com.revature.service;
 
-import com.revature.Exceptions.UserNotExistsException;
+import com.revature.Exceptions.NoUserFoundException;
 import com.revature.models.EPICImage;
 import com.revature.models.FavEpicImage;
 import com.revature.models.User;
@@ -14,7 +14,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class EPICService {
@@ -48,23 +47,8 @@ public class EPICService {
         epic_repo.save(dto[0]);
     }
 
-
-    private Optional<Integer> getUserId(final String username) {
-        List<User> users = user_repo.findByUsername(username);
-        if(users == null || users.size() < 1) {
-            return Optional.empty();
-        }
-        return Optional.of(users.get(0));
-    }
-
-    public void addEPICImageToFavorites(final FavEpicImage image,final String username) {
-        List<FavEpicImage> db_images = fav_epic_repo.findByImage(image.getImage_title());
-        if(db_images == null || db_images.size() < 1) {
-            fav_epic_repo.save(image);
-            db_images = fav_epic_repo.findByImage(image.getImage_title());
-        }
-        final Integer id = getUserId(username).orElseThrow(UserNotExistsException::new);
-        fav_epic_repo.updateRefTable(id,db_images.get(0).getId());
+    public void addEPICImageToFavorites(final String username, final String date) {
+        fav_epic_repo.updateRefTable(username,date);
     }
 
     public List<FavEpicImage> getFavImages(final String username) {

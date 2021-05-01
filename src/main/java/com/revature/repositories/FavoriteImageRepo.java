@@ -18,8 +18,9 @@ public interface FavoriteImageRepo extends CrudRepository<FavNasaImage,Integer> 
 
     @Modifying
     @Transactional
-    @Query(value = "insert into Fav_Img_Ref (user_id,img_id) values (:user_id,:img_id)", nativeQuery = true)
-    void updateFavoriteImageReferences(final Integer user_id, final Integer img_id);
+    @Query(value = "insert into fav_img_ref (user_id,img_id)\n" +
+             " select u.id,img.id from users as u, fav_image as img where u.username =:username and  img.url = :url", nativeQuery = true)
+    void updateFavoriteImageReferences(final String username, final String url);
 
     @Query(value = "select * from fav_image \n" +
             "join  Fav_Img_Ref as refs on id = refs.img_id\n" +

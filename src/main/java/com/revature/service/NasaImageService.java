@@ -114,28 +114,12 @@ public class NasaImageService {
     }
 
 
-    public void addImageToFavorites(final int user_id,final int img_id,final String url) {
-        List<FavNasaImage> images = fav_image_repo.findByUrl(url);
-        if(images == null || images.size() == 0) {
-            final NasaImage image = nasa_image_repo.findById(img_id).orElseThrow(RuntimeException::new);
-            final FavNasaImage fav_img = convertNasaToFav(image);
-            fav_image_repo.save(fav_img);
-            images = fav_image_repo.findByUrl(url);
-        }
-        fav_image_repo.updateFavoriteImageReferences(user_id,images.get(0).getId());
+    public void addImageToFavorites(final String username,final String url) {
+        fav_image_repo.updateFavoriteImageReferences(username,url);
     }
 
-    private FavNasaImage convertNasaToFav(final NasaImage image) {
-        final FavNasaImage fav = new FavNasaImage();
-        fav.setDescription(image.getDescription());
-        fav.setLink(image.getLink());
-        fav.setTitle(image.getTitle());
-        return fav;
-    }
-
-
-    public List<NasaImage> getFavImage(final int user) {
-        return fav_image_repo.getUserFavoriteImages(user);
+    public List<NasaImage> getFavImage(final String username) {
+        return fav_image_repo.getUserFavoriteImages(username);
     }
 
 }
