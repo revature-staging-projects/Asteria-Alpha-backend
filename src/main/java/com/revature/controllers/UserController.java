@@ -33,11 +33,4 @@ public class UserController {
 
     }
 
-    //TODO delete me.
-    @GetMapping(path = "/valid",consumes = MediaType.APPLICATION_JSON_VALUE,produces = MediaType.APPLICATION_JSON_VALUE)
-    public boolean checkValid(@RequestBody final Credentials creds) {
-        return user_service.checkIfValid(creds.getUsername());
-    }
-
-
 }
