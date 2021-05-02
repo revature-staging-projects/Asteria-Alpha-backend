@@ -23,6 +23,12 @@ public class NasaImageService {
     private final FavoriteImageRepo fav_image_repo;
     private int count = 0;
     private int old_count = 0;
+    private int prev_i;
+    private final List<String> search_terms = Collections.unmodifiableList(Arrays.asList
+            (
+                "apollo","gemini","space","planets","rocket",
+                "solar system","satellites","galaxies","space shuttle"
+            ));
 
     private final List<String> filter_terms = Collections.unmodifiableList(Arrays.asList
             (
@@ -76,7 +82,17 @@ public class NasaImageService {
             return images;
     }
 
-    private List<NasaImage> getListOfImages(final String search_term) {
+    private String getRandSearchTerm() {
+        int i;
+        do {
+            i = rand.nextInt(search_terms.size());
+        }while(i == prev_i);
+        prev_i = i;
+        return search_terms.get(i);
+    }
+
+    private List<NasaImage> getListOfImages() {
+        final String search_term = getRandSearchTerm();
         final String url = "https://images-api.nasa.gov/search?q=" + search_term + "&media_type=image&page=15";
         final NasaImageDTO dto = WebClient.create(url).get().retrieve().bodyToMono(NasaImageDTO.class).blockOptional().orElseThrow(RuntimeException::new);
         final List<NasaImage> images = parseImageDTOIntoNasaImageObjectList(dto);
@@ -97,14 +113,9 @@ public class NasaImageService {
         nasa_image_repo.truncateDB();
         count = 0;
         old_count = 0;
-       final List<String> search_terms = Arrays.asList
-               (
-                "apollo","gemini","space","planets","rocket",
-                "solar system","satellites","galaxies","space shuttle"
-               );
-       Collections.shuffle(search_terms);
+        prev_i = -1;
         for (int i = 0; i < 2; i++) {
-            nasa_image_repo.saveAll(getListOfImages(search_terms.get(i)));
+            nasa_image_repo.saveAll(getListOfImages());
         }
     }
 
