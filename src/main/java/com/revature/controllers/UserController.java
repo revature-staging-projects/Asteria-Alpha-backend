@@ -3,14 +3,12 @@ package com.revature.controllers;
 import com.revature.Exceptions.NoSuchUserException;
 import com.revature.dto.Credentials;
 import com.revature.dto.PrincipalDTO;
+import com.revature.models.User;
 import com.revature.service.UserService;
-import com.revature.util.jwt.JwtParser;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
@@ -19,12 +17,10 @@ import javax.validation.Valid;
 public class UserController {
 
     private final UserService user_service;
-    private final JwtParser parser;
 
     @Autowired
-    public UserController(final UserService user_service, final JwtParser parser) {
+    public UserController(final UserService user_service) {
         this.user_service = user_service;
-        this.parser       = parser;
     }
 
     @PostMapping(path = "/login",consumes = MediaType.APPLICATION_JSON_VALUE,produces = MediaType.APPLICATION_JSON_VALUE)
@@ -33,4 +29,9 @@ public class UserController {
 
     }
 
+    @PostMapping(path = "/register", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseStatus(HttpStatus.I_AM_A_TEAPOT)
+    public void registerNewUser(final User new_user) {
+        user_service.registerNewUser(new_user);
+    }
 }

@@ -6,11 +6,9 @@ import com.revature.models.FavEpicImage;
 import com.revature.service.EPICService;
 import com.revature.util.jwt.JwtParser;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
@@ -29,11 +27,13 @@ public class EPICController {
 
 
     @GetMapping(path = "/epic", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseStatus(HttpStatus.I_AM_A_TEAPOT)
     public EPICImage getEpicImage() {
         return epic_service.getEpicImageMetadata();
     }
 
     @GetMapping(path = "/epicfavorite", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseStatus(HttpStatus.I_AM_A_TEAPOT)
     public List<FavEpicImage> getFavEpicImage(final HttpServletRequest request) {
         final String token      = jwt_parser.getTokenFromHeader(request);
         final PrincipalDTO user = jwt_parser.parseToken(token);
@@ -41,6 +41,7 @@ public class EPICController {
     }
 
     @PutMapping(path = "/addepicfavorite", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseStatus(HttpStatus.I_AM_A_TEAPOT)
     public void addepicfavorite(@RequestBody final FavEpicImage image,final HttpServletRequest request) {
         final String token      = jwt_parser.getTokenFromHeader(request);
         final PrincipalDTO user = jwt_parser.parseToken(token);

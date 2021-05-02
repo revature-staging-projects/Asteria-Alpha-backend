@@ -17,6 +17,12 @@ public class User {
     @Column(name = "password")
     private String password;
 
+    @Column(name = "location")
+    private String location;
+
+    @Column(name = "email")
+    private String email;
+
     public int getId() {
         return id;
     }
@@ -39,5 +45,21 @@ public class User {
 
     public void setPassword(final String password) {
         this.password = password;
+    }
+
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(final String location) {
+        this.location = location;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(final String email) {
+        this.email = email;
     }
 }

@@ -1,5 +1,6 @@
 package com.revature.service;
 
+import com.revature.Exceptions.AlreadyExistingUserException;
 import com.revature.Exceptions.InvalidRequestException;
 import com.revature.Exceptions.ResourceNotFoundException;
 import com.revature.dto.Credentials;
@@ -79,6 +80,18 @@ public class UserService {
             return Optional.of(principal);
         }
         return Optional.empty();
+    }
+
+
+    public void registerNewUser(final User  new_user) {
+        final List<User> users = user_repo.findByUsername(new_user.getUsername());
+        if(users == null || users.size() < 1) {
+            user_repo.save(new_user);
+            user_repo.addToVerifiedTable(new_user.getUsername());
+        }
+        else {
+            throw new AlreadyExistingUserException("sorry, but: " + new_user.getUsername() + " already exists.");
+        }
     }
 
 }
