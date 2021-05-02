@@ -23,11 +23,6 @@ public class NasaImageService {
     private final FavoriteImageRepo fav_image_repo;
     private int count = 0;
     private int old_count = 0;
-    private final List<String> search_terms = Collections.unmodifiableList(Arrays.asList
-            (
-                "apollo","gemini","space","planets","rocket",
-                "solar system","satellites","galaxies","space shuttle"
-            ));
 
     private final List<String> filter_terms = Collections.unmodifiableList(Arrays.asList
             (
@@ -81,9 +76,7 @@ public class NasaImageService {
             return images;
     }
 
-    private List<NasaImage> getListOfImages() {
-        final String search_term = search_terms.get(rand.nextInt(search_terms.size()));
-        System.out.println("\n\n\n==================\nSearch term is: " + search_term + "\n\n\n");
+    private List<NasaImage> getListOfImages(final String search_term) {
         final String url = "https://images-api.nasa.gov/search?q=" + search_term + "&media_type=image&page=15";
         final NasaImageDTO dto = WebClient.create(url).get().retrieve().bodyToMono(NasaImageDTO.class).blockOptional().orElseThrow(RuntimeException::new);
         final List<NasaImage> images = parseImageDTOIntoNasaImageObjectList(dto);
@@ -100,13 +93,18 @@ public class NasaImageService {
 
    @Scheduled(fixedRate = 86400000)
     private void setCollection() {
-        System.out.println("\n\n-------------------\n" + "envir is: " + ((System.getenv() != null)? "envir": "property") +"\n\n");
         nasa_image_repo.resetCounter();
         nasa_image_repo.truncateDB();
         count = 0;
         old_count = 0;
+       final List<String> search_terms = Arrays.asList
+               (
+                "apollo","gemini","space","planets","rocket",
+                "solar system","satellites","galaxies","space shuttle"
+               );
+       Collections.shuffle(search_terms);
         for (int i = 0; i < 2; i++) {
-            nasa_image_repo.saveAll(getListOfImages());
+            nasa_image_repo.saveAll(getListOfImages(search_terms.get(i)));
         }
     }
 

@@ -10,7 +10,7 @@ import java.security.Key;
 @Component
 public class JwtConfig {
 
-    private final String secret_key = (System.getProperty("secret_key") != null) ? System.getProperty("secret_key"): System.getenv("secret_key");
+    private final String secret_key = System.getenv("secret_key");
 
     private final SignatureAlgorithm SIG_ALG = SignatureAlgorithm.HS256;
 

@@ -32,9 +32,6 @@ public class UserService {
         this.encryption = encryption;
     }
 
-
-
-    //TODO delte me
     public boolean checkIfValid(final String username) {
         return user_repo.getIfValid(username);
     }
