@@ -5,9 +5,12 @@ import com.revature.dto.PrincipalDTO;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
 
 import javax.servlet.http.HttpServletRequest;
 
+@Component
 public class JwtParser {
 
     private final JwtConfig config;

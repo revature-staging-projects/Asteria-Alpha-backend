@@ -1,29 +1,10 @@
-package com.revature.models;
+package com.revature.dto;
 
+public class Credentials {
 
-import javax.persistence.*;
-
-@Entity
-@Table(name = "Users")
-public class User {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
-
-    @Column(name = "username")
     private String username;
 
-    @Column(name = "password")
     private String password;
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(final int id) {
-        this.id = id;
-    }
 
     public String getUsername() {
         return username;

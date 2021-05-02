@@ -7,6 +7,7 @@ import javax.crypto.spec.SecretKeySpec;
 import javax.xml.bind.DatatypeConverter;
 import java.security.Key;
 
+@Component
 public class JwtConfig {
 
     private final String secret_key = (System.getProperty("secret_key") != null) ? System.getProperty("secret_key"): System.getenv("secret_key");

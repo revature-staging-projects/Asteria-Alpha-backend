@@ -1,12 +1,13 @@
 package com.revature.util.jwt;
 
 import com.revature.dto.PrincipalDTO;
-import io.jsonwebtoken.JwtBuilder;
 import io.jsonwebtoken.Jwts;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.util.Date;
 
+@Component
 public class JwtGenerator {
 
     private final JwtConfig config;

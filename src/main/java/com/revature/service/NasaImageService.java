@@ -100,6 +100,7 @@ public class NasaImageService {
 
    @Scheduled(fixedRate = 86400000)
     private void setCollection() {
+        System.out.println("\n\n-------------------\n" + "envir is: " + ((System.getenv() != null)? "envir": "property") +"\n\n");
         nasa_image_repo.resetCounter();
         nasa_image_repo.truncateDB();
         count = 0;

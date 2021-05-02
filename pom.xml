@@ -58,7 +58,6 @@
             <scope>test</scope>
         </dependency>
 
-
         <!--Necessary dependency for WebClient-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -72,11 +71,11 @@
             <version>0.9.1</version>
         </dependency>
 
-        <!-- needed for jwt -->
+        <!-- Password Encryption-->
         <dependency>
-            <groupId>io.jsonwebtoken</groupId>
-            <artifactId>jjwt</artifactId>
-            <version>0.9.1</version>
+            <groupId>at.favre.lib</groupId>
+            <artifactId>bcrypt</artifactId>
+            <version>0.9.0</version>
         </dependency>
 
 

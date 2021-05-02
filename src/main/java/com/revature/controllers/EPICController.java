@@ -23,9 +23,8 @@ public class EPICController {
 
     @Autowired
     public EPICController(final EPICService epic_service, final JwtParser jwt_parser) {
-
         this.epic_service = epic_service;
-        this.jwt_parser = jwt_parser;
+        this.jwt_parser   = jwt_parser;
     }
 
 
