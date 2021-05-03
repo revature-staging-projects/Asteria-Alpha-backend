@@ -2,6 +2,7 @@ package com.revature.service;
 
 import com.revature.dto.ImageItems;
 import com.revature.dto.NasaImageDTO;
+import com.revature.models.FavNasaImage;
 import com.revature.models.NasaImage;
 import com.revature.repositories.FavoriteImageRepo;
 import com.revature.repositories.NasaImageRepo;
@@ -123,7 +124,15 @@ public class NasaImageService {
     }
 
 
+    private boolean checkForImageFavorite(final String url) {
+        List<FavNasaImage> favorites = fav_image_repo.findByUrl(url);
+        return favorites == null || favorites.size() < 1;
+    }
+
     public void addImageToFavorites(final String username,final String url) {
+        if(!checkForImageFavorite(url)) {
+            fav_image_repo.addImageToFav(url);
+        }
         fav_image_repo.updateFavoriteImageReferences(username,url);
     }
 

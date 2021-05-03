@@ -31,7 +31,7 @@ public class JwtParser {
 
 
     public String getTokenFromHeader(final HttpServletRequest request) {
-        final String token = request.getHeader("Asteria-token");
+        final String token = request.getHeader("Asteria-header");
         if(token == null || token.isEmpty()) {
             throw new InvalidRequestException("not logged in");
         }

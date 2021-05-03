@@ -44,7 +44,10 @@ public class NasaImageController {
     public List<NasaImage> getFavNasaImage(final HttpServletRequest request) {
         final String token      = jwt_parser.getTokenFromHeader(request);
         final PrincipalDTO user = jwt_parser.parseToken(token);
+        System.out.println("\n\n--------\nusername is: " + user.getUsername());
         return nasa_image_service.getFavImage(user.getUsername());
     }
+
+
 
 }
