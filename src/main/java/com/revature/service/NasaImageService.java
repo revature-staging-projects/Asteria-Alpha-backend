@@ -36,7 +36,7 @@ public class NasaImageService {
                 "ceremony","Kennedy Center for the Performing Arts","CEREMONIES","Apollo 40th Anniversary","U.S. Senator",
                 "U.S. Congresswoman","U.S. Congressman","NASA Administrator","Space Symposium","All Hands Meeting",
                 "U.S. Vice President","Spectators","50th anniversary","Apollo 11 50th Anniversary", "National Symphony Orchestra",
-                "VIP Visits","Vice President Mike Pence"
+                "VIP Visits","Vice President Mike Pence","ACCLLP"
             ));
 
     private final Random rand = new Random();
@@ -126,7 +126,7 @@ public class NasaImageService {
 
     private boolean checkForImageFavorite(final String url) {
         List<FavNasaImage> favorites = fav_image_repo.findByUrl(url);
-        return favorites == null || favorites.size() < 1;
+        return favorites != null && favorites.size() > 0;
     }
 
     public void addImageToFavorites(final String username,final String url) {
@@ -136,7 +136,7 @@ public class NasaImageService {
         fav_image_repo.updateFavoriteImageReferences(username,url);
     }
 
-    public List<NasaImage> getFavImage(final String username) {
+    public List<FavNasaImage> getFavImage(final String username) {
         return fav_image_repo.getUserFavoriteImages(username);
     }
 

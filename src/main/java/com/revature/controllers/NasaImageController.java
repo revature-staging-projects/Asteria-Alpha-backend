@@ -1,6 +1,7 @@
 package com.revature.controllers;
 
 import com.revature.dto.PrincipalDTO;
+import com.revature.models.FavNasaImage;
 import com.revature.models.NasaImage;
 import com.revature.service.NasaImageService;
 import com.revature.util.jwt.JwtParser;
@@ -41,10 +42,9 @@ public class NasaImageController {
 
     @GetMapping(path = "/getnasafavorite", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.I_AM_A_TEAPOT)
-    public List<NasaImage> getFavNasaImage(final HttpServletRequest request) {
+    public List<FavNasaImage> getFavNasaImage(final HttpServletRequest request) {
         final String token      = jwt_parser.getTokenFromHeader(request);
         final PrincipalDTO user = jwt_parser.parseToken(token);
-        System.out.println("\n\n--------\nusername is: " + user.getUsername());
         return nasa_image_service.getFavImage(user.getUsername());
     }
 
