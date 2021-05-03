@@ -7,8 +7,6 @@ public class PrincipalDTO {
     @JsonIgnore
     private String token;
 
-    private int id;
-
     private String username;
 
     private String email;
@@ -19,14 +17,6 @@ public class PrincipalDTO {
 
     public void setToken(final String token) {
         this.token = token;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(final int id) {
-        this.id = id;
     }
 
     public String getUsername() {

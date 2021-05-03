@@ -25,7 +25,6 @@ public class JwtParser {
                                 .parseClaimsJws(token)
                                 .getBody();
         final PrincipalDTO subject = new PrincipalDTO();
-        subject.setId(Integer.parseInt(claim.getId()));
         subject.setUsername(claim.getSubject());
         return subject;
     }

@@ -24,6 +24,13 @@ public interface UserRepo extends CrudRepository<User,Integer> {
                     "Select u.id from users as u where u.username = :username", nativeQuery = true)
     void addToVerifiedTable(final String username);
 
+    @Transactional
+    @Modifying
+    @Query(value = "update verified" +
+            "set verified = true" +
+            "where user_id = :id")
+    void updateVerified(final int id);
+
 
     List<User> findByUsername(final String username);
 }

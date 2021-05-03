@@ -11,6 +11,7 @@ import java.util.Date;
 public class JwtGenerator {
 
     private final JwtConfig config;
+    private final String issuer = System.getenv("issuer_name");
 
     @Autowired
     public JwtGenerator(final JwtConfig config) {
@@ -21,9 +22,8 @@ public class JwtGenerator {
     public String generateJwt(final PrincipalDTO subject) {
         final long now = System.currentTimeMillis();
         return Jwts.builder()
-                .setId(String.valueOf(subject.getId()))
                 .setSubject(subject.getUsername())
-                .setIssuer("Asteria-Alpha")
+                .setIssuer(issuer)
                 .setIssuedAt(new Date(now))
                 .setExpiration(new Date(now + (60 * 60 * 1000 * 4)))
                 .signWith(config.getSignatureAlgorithm(), config.getSigningKey())
