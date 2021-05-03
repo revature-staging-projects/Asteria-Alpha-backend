@@ -1,9 +1,7 @@
 package com.revature.service;
 
-import com.revature.Exceptions.NoUserFoundException;
 import com.revature.models.EPICImage;
 import com.revature.models.FavEpicImage;
-import com.revature.models.User;
 import com.revature.repositories.EPICRepo;
 import com.revature.repositories.FavEPICRepo;
 import com.revature.repositories.UserRepo;

@@ -7,9 +7,9 @@ import com.revature.dto.Credentials;
 import com.revature.dto.PrincipalDTO;
 import com.revature.models.User;
 import com.revature.repositories.UserRepo;
+import com.revature.util.encryption.PasswordEncryption;
 import com.revature.util.jwt.JwtGenerator;
 import com.revature.util.jwt.JwtParser;
-import com.revature.util.encryption.PasswordEncryption;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -31,10 +31,6 @@ public class UserService {
         this.parser     = parser;
         this.generator  = generator;
         this.encryption = encryption;
-    }
-
-    public boolean checkIfValid(final String username) {
-        return user_repo.getIfValid(username);
     }
 
     private boolean isUserConfirmed(final User user) {
@@ -86,6 +82,7 @@ public class UserService {
     public void registerNewUser(final User  new_user) {
         final List<User> users = user_repo.findByUsername(new_user.getUsername());
         if(users == null || users.size() < 1) {
+            new_user.setPassword(encryption.encryptString(new_user.getPassword()));
             user_repo.save(new_user);
             user_repo.addToVerifiedTable(new_user.getUsername());
         }

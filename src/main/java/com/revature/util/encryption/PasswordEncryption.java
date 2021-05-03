@@ -1,7 +1,7 @@
 package com.revature.util.encryption;
 
-import org.springframework.stereotype.Component;
 import at.favre.lib.crypto.bcrypt.BCrypt;
+import org.springframework.stereotype.Component;
 
 @Component
 public class PasswordEncryption {

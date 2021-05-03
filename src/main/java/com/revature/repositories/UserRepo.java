@@ -20,7 +20,7 @@ public interface UserRepo extends CrudRepository<User,Integer> {
 
     @Transactional
     @Modifying
-    @Query(value = "insert into verified as v (v.user_id)" +
+    @Query(value = "insert into verified (user_id)" +
                     "Select u.id from users as u where u.username = :username", nativeQuery = true)
     void addToVerifiedTable(final String username);
 
