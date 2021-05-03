@@ -50,6 +50,8 @@ public class NewsService {
 
     @Scheduled(fixedRate = 86400000)
     public void addArticlesToDB() {
+        news_repo.truncateDB();
+        news_repo.resetCounter();
         final List<NewsObject> news = new LinkedList<>();
         for(int i = 0; i < 2; i++) {
             news.addAll(Arrays.asList(getNewsArticles(search_terms.get(i))));
