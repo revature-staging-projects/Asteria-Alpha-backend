@@ -109,14 +109,14 @@ public class NasaImageService {
 
    @Scheduled(fixedRate = 86400000)
     private void setCollection() {
-        nasa_image_repo.resetCounter();
-        nasa_image_repo.truncateDB();
-        count = 0;
-        old_count = 0;
-        prev_i = -1;
-        for (int i = 0; i < 2; i++) {
-            nasa_image_repo.saveAll(getListOfImages());
-        }
+//        nasa_image_repo.resetCounter();
+//        nasa_image_repo.truncateDB();
+//        count = 0;
+//        old_count = 0;
+//        prev_i = -1;
+//        for (int i = 0; i < 2; i++) {
+//            nasa_image_repo.saveAll(getListOfImages());
+//        }
     }
 
     public NasaImage getImage() {

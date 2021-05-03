@@ -32,16 +32,16 @@ public class EPICService {
 
     @Scheduled(fixedRate = 86400000)
     private void getDailyImage() {
-        final String url = "https://epic.gsfc.nasa.gov/api/natural";
-        final EPICImage[] dto = WebClient.create(url)
-                .get()
-                .accept(MediaType.APPLICATION_JSON,MediaType.APPLICATION_XML)
-                .retrieve()
-                .bodyToMono(EPICImage[].class)
-                .blockOptional().orElseThrow(RuntimeException::new);
-        epic_repo.truncateDB();
-        epic_repo.resetCounter();
-        epic_repo.save(dto[0]);
+//        final String url = "https://epic.gsfc.nasa.gov/api/natural";
+//        final EPICImage[] dto = WebClient.create(url)
+//                .get()
+//                .accept(MediaType.APPLICATION_JSON,MediaType.APPLICATION_XML)
+//                .retrieve()
+//                .bodyToMono(EPICImage[].class)
+//                .blockOptional().orElseThrow(RuntimeException::new);
+//        epic_repo.truncateDB();
+//        epic_repo.resetCounter();
+//        epic_repo.save(dto[0]);
     }
 
     private boolean checkIfPresent(final EPICImage image) {

@@ -1,15 +1,18 @@
 package com.revature.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.revature.util.converter.ThumbnailConverter;
 
-import javax.persistence.Column;
-import javax.persistence.Convert;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "Article")
 public class NewsObject {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @JsonIgnore
+    private int id;
 
     @Column(name = "title")
     private String title;
@@ -55,5 +58,13 @@ public class NewsObject {
 
     public void setImage(final Thumbnail image) {
         this.image = image;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(final int id) {
+        this.id = id;
     }
 }
