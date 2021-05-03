@@ -1,6 +1,9 @@
 package com.revature.models;
 
+import com.revature.util.converter.ThumbnailConverter;
+
 import javax.persistence.Column;
+import javax.persistence.Convert;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
@@ -17,7 +20,9 @@ public class NewsObject {
     @Column(name = "snippet")
     private String snippet;
 
-    private Thumbnail thumbnail;
+    @Column(name = "thumbnail_url")
+    @Convert(converter = ThumbnailConverter.class)
+    private Thumbnail image;
 
 
     public String getTitle() {
@@ -44,11 +49,11 @@ public class NewsObject {
         this.snippet = snippet;
     }
 
-    public Thumbnail getThumbnail() {
-        return thumbnail;
+    public Thumbnail getImage() {
+        return image;
     }
 
-    public void setThumbnail(final Thumbnail thumbnail) {
-        this.thumbnail = thumbnail;
+    public void setImage(final Thumbnail image) {
+        this.image = image;
     }
 }
