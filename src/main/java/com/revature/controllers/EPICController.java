@@ -40,12 +40,12 @@ public class EPICController {
         return epic_service.getFavImages(user.getUsername());
     }
 
-    @PutMapping(path = "/addepicfavorite", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @PutMapping(path = "/addepicfavorite")
     @ResponseStatus(HttpStatus.I_AM_A_TEAPOT)
-    public void addepicfavorite(@RequestBody final FavEpicImage image,final HttpServletRequest request) {
+    public void addepicfavorite(final HttpServletRequest request) {
         final String token      = jwt_parser.getTokenFromHeader(request);
         final PrincipalDTO user = jwt_parser.parseToken(token);
-        epic_service.addEPICImageToFavorites(user.getUsername(),image.getImage_date());
+        epic_service.addEPICImageToFavorites(user.getUsername());
     }
 
 }
