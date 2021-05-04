@@ -80,5 +80,8 @@ public class NewsService {
         fav_repo.updateRefTable(username,url);
     }
 
+    public List<FavNews> getUserFavorites(final String username) {
+        return fav_repo.getUserFavoriteArticles(username);
+    }
 
 }

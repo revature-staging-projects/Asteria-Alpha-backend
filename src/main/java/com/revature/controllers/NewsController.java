@@ -1,6 +1,7 @@
 package com.revature.controllers;
 
 import com.revature.dto.PrincipalDTO;
+import com.revature.models.FavNews;
 import com.revature.models.NewsObject;
 import com.revature.service.NewsService;
 import com.revature.util.jwt.JwtParser;
@@ -41,5 +42,12 @@ public class NewsController {
 
     }
 
+    @GetMapping(path = "/getnewsfavorites")
+    @ResponseStatus(value = HttpStatus.I_AM_A_TEAPOT)
+    public List<FavNews> getUserFavoriteArticles(final HttpServletRequest request) {
+        final String token      = jwt_parser.getTokenFromHeader(request);
+        final PrincipalDTO user = jwt_parser.parseToken(token);
+        return news_service.getUserFavorites(user.getUsername());
+    }
 
 }
