@@ -9,9 +9,9 @@ import javax.servlet.http.HttpServletResponse;
 @RestController
 public class RedirectController {
 
-        @GetMapping(value = "/")
-        public void redirectToServices(HttpServletResponse httpServletResponse){
-            httpServletResponse.setHeader("Location", "/swagger-ui/");
-            httpServletResponse.setStatus(302);
-        }
+//        @GetMapping(value = "/")
+//        public void redirectToServices(HttpServletResponse httpServletResponse){
+//            httpServletResponse.setHeader("Location", "/swagger-ui/");
+//            httpServletResponse.setStatus(302);
+//        }
 }
