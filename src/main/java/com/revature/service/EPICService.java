@@ -28,7 +28,7 @@ public class EPICService {
     }
 
     @Scheduled(fixedRate = 86400000)
-    private void getDailyImage() {
+    public void getDailyImage() {
 //        final String url = "https://epic.gsfc.nasa.gov/api/natural";
 //        final EPICImage[] dto = WebClient.create(url)
 //                .get()

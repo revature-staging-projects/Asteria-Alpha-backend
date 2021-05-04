@@ -108,7 +108,7 @@ public class NasaImageService {
     }
 
    @Scheduled(fixedRate = 86400000)
-    private void setCollection() {
+    public void setCollection() {
 //        nasa_image_repo.resetCounter();
 //        nasa_image_repo.truncateDB();
 //        count = 0;
