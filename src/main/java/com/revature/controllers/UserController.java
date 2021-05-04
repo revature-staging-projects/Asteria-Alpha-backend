@@ -27,6 +27,7 @@ public class UserController {
     }
 
     @PostMapping(path = "/login",consumes = MediaType.APPLICATION_JSON_VALUE,produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseStatus(value = HttpStatus.I_AM_A_TEAPOT)
     public PrincipalDTO logUserIn(@RequestBody @Valid final Credentials creds, final HttpServletResponse response) {
         return user_service.logInUser(creds,response).orElseThrow(NoSuchUserException::new);
 

@@ -2,27 +2,28 @@ package com.revature.service;
 
 import com.revature.dto.NasaImageDTO;
 import com.revature.dto.NewsDTO;
+import com.revature.models.FavNews;
 import com.revature.models.NewsObject;
+import com.revature.repositories.FavArticleRepo;
 import com.revature.repositories.NewsRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 
 @Service
 public class NewsService {
 
     private final NewsRepo news_repo;
+    private final FavArticleRepo fav_repo;
     private final List<String> search_terms = Collections.unmodifiableList(Arrays.asList("Nasa","Astronomy"));
 
     @Autowired
-    public NewsService(final NewsRepo news_repo) {
+    public NewsService(final NewsRepo news_repo, final FavArticleRepo fav_repo) {
         this.news_repo = news_repo;
+        this.fav_repo  = fav_repo;
     }
 
 
@@ -50,14 +51,33 @@ public class NewsService {
 
     @Scheduled(fixedRate = 86400000)
     public void addArticlesToDB() {
-        news_repo.truncateDB();
-        news_repo.resetCounter();
-        final List<NewsObject> news = new LinkedList<>();
-        for(int i = 0; i < 2; i++) {
-            news.addAll(Arrays.asList(getNewsArticles(search_terms.get(i))));
+//        news_repo.truncateDB();
+//        news_repo.resetCounter();
+//        final List<NewsObject> news = new LinkedList<>();
+//        for(int i = 0; i < 2; i++) {
+//            news.addAll(Arrays.asList(getNewsArticles(search_terms.get(i))));
+//        }
+//        Collections.shuffle(news);
+//        news_repo.saveAll(news);
+    }
+
+    public List<NewsObject> getAllNews() {
+        final List<NewsObject> news = new ArrayList<>();
+        news_repo.findAll().forEach(news::add);
+        return news;
+    }
+
+
+    private boolean checkIfExists(final String url) {
+        final List<FavNews> news = fav_repo.findByUrl(url);
+        return news != null && news.size() > 0;
+    }
+
+    public void addArticleToFavorites(final String url, final String username) {
+        if(!checkIfExists(url)) {
+            fav_repo.addImageToFav(url);
         }
-        Collections.shuffle(news);
-        news_repo.saveAll(news);
+        fav_repo.updateRefTable(username,url);
     }
 
 

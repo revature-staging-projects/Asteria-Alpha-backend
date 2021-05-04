@@ -22,4 +22,13 @@ public interface FavArticleRepo extends CrudRepository<FavNews,Integer> {
             " select u.id,art.id from users as u, Fav_Article as art where u.username =:username and art.url = :url", nativeQuery = true)
     void updateRefTable(final String username,final String url);
 
+    @Modifying
+    @Transactional
+    @Query(value = "insert into Fav_Article (title,snippet, url,thumbnail_url)" +
+            "select n.title,n.snippet,n.url,n.thumbnail_url from Article as n where n.url = :url",nativeQuery = true)
+    void addImageToFav(final String url);
+
+
+    List<FavNews> findByUrl(final String url);
+
 }
