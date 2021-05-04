@@ -4,6 +4,9 @@ import com.revature.dto.ErrorResponseDTO;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 
+/**
+ * Factory class to generate error responseDTOs.
+ */
 @Component
 public class ErrorResponseFactory {
 

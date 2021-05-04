@@ -1,5 +1,8 @@
 package com.revature.dto;
 
+/**
+ * DTO which stored error response information whcih is sent form backend to front end.
+ */
 public class ErrorResponseDTO {
 
     private final int status;

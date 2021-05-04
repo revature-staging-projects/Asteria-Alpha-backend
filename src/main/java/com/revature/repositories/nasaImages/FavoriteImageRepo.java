@@ -1,4 +1,4 @@
-package com.revature.repositories;
+package com.revature.repositories.nasaImages;
 
 import com.revature.models.nasaImages.FavNasaImage;
 import org.springframework.data.jpa.repository.Modifying;
@@ -9,6 +9,9 @@ import org.springframework.stereotype.Repository;
 import javax.transaction.Transactional;
 import java.util.List;
 
+/**
+ * Repository to handle writing and retrieving data to.from the database concerning NASa images which have been favorited.
+ */
 @Repository
 public interface FavoriteImageRepo extends CrudRepository<FavNasaImage,Integer> {
 

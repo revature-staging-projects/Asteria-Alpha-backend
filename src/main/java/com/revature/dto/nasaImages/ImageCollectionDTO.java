@@ -1,7 +1,10 @@
-package com.revature.dto;
+package com.revature.dto.nasaImages;
 
 import java.util.List;
 
+/**
+ * DTO which represents the collection JSON object gotten form the NASA API.
+ */
 public class ImageCollectionDTO {
 
     List<ImageItems> items;

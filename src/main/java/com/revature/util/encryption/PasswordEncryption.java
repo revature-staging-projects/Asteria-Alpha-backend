@@ -3,6 +3,9 @@ package com.revature.util.encryption;
 import at.favre.lib.crypto.bcrypt.BCrypt;
 import org.springframework.stereotype.Component;
 
+/**
+ * handles encrypting and verifying passwords.
+ */
 @Component
 public class PasswordEncryption {
 

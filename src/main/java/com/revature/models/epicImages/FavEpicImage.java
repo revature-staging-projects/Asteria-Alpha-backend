@@ -5,6 +5,9 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import javax.persistence.*;
 import java.util.Objects;
 
+/**
+ * POJO which sotres EPIC image metadata for each image which has been favorited by a user.
+ */
 @Entity
 @Table(name = "Fav_Epic_Image")
 public class FavEpicImage {

@@ -1,8 +1,8 @@
-package com.revature.dto;
+package com.revature.dto.nasaImages;
 
 public class NasaImageDTO {
-    ImageCollectionDTO collection;
 
+    ImageCollectionDTO collection;
 
     public NasaImageDTO() {
         super();

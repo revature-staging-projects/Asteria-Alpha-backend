@@ -10,6 +10,9 @@ import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
 
+/**
+ * Aspect which handles logging exceptions.
+ */
 @Aspect
 @Component
 public class LogginAspect {

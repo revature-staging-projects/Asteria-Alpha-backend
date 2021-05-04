@@ -6,10 +6,17 @@ import springfox.documentation.annotations.ApiIgnore;
 
 import javax.servlet.http.HttpServletResponse;
 
+/**
+ * Controller which is used to redirect links on the website.
+ */
 @ApiIgnore
 @RestController
 public class RedirectController {
 
+    /**
+     * redirect the root page to the swagger-ui.
+     * @param httpServletResponse response which contains the redirect instructions for the browser.
+     */
         @GetMapping(value = "/")
         public void redirectToServices(HttpServletResponse httpServletResponse){
             httpServletResponse.setHeader("Location", "/swagger-ui/");

@@ -1,4 +1,4 @@
-package com.revature.repositories;
+package com.revature.repositories.newsArticles;
 
 import com.revature.models.news.NewsObject;
 import org.springframework.data.jpa.repository.Modifying;
@@ -8,6 +8,9 @@ import org.springframework.stereotype.Repository;
 
 import javax.transaction.Transactional;
 
+/**
+ * Repository to handle reading/writing to/from database concerning news articles.
+ */
 @Repository
 public interface NewsRepo extends CrudRepository<NewsObject,Integer> {
 

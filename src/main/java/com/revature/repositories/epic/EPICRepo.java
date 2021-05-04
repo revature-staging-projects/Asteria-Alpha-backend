@@ -1,4 +1,4 @@
-package com.revature.repositories;
+package com.revature.repositories.epic;
 
 import com.revature.models.epicImages.EPICImage;
 import org.springframework.data.jpa.repository.Modifying;
@@ -8,6 +8,9 @@ import org.springframework.stereotype.Repository;
 
 import javax.transaction.Transactional;
 
+/**
+ * Repository to handle writing and retrieving EPIC image info to/from the database.
+ */
 @Repository
 public interface EPICRepo extends CrudRepository<EPICImage,Integer> {
 

@@ -1,7 +1,10 @@
-package com.revature.dto;
+package com.revature.dto.users;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+/**
+ * DTO which sends user information between frontend and backend.
+ */
 public class PrincipalDTO {
 
     @JsonIgnore

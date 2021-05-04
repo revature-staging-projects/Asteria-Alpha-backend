@@ -5,6 +5,9 @@ import com.revature.util.converter.ThumbnailConverter;
 
 import javax.persistence.*;
 
+/**
+ * POJO which stored into the database information about current news stories.
+ */
 @Entity
 @Table(name = "Article")
 public class NewsObject {

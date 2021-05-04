@@ -3,6 +3,9 @@ package com.revature.models.users;
 
 import javax.persistence.*;
 
+/**
+ * POJO which stores user information.
+ */
 @Entity
 @Table(name = "Users")
 public class User {

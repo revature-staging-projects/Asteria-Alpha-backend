@@ -2,6 +2,9 @@ package com.revature.models.news;
 
 import java.util.Objects;
 
+/**
+ * POJO to store the thumbnail url of a news story.
+ */
 public class Thumbnail {
 
     private String thumbnail;

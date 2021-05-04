@@ -5,6 +5,9 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import javax.persistence.*;
 import java.util.Objects;
 
+/**
+ * POJO which stored EPIC image metadata inside of database.
+ */
 @Entity
 @Table(name = "EPIC_Image")
 public class EPICImage {

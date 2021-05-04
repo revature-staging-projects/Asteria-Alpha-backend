@@ -1,9 +1,13 @@
-package com.revature.dto;
+package com.revature.dto.nasaImages;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.List;
 
+/**
+ * DTO which contains the data of a NASA image.
+ * represents the 'data' json object which is retrieved from the API.
+ */
 public class DataObject {
 
     String title;

@@ -1,11 +1,11 @@
 package com.revature.service;
 
-import com.revature.dto.ImageItems;
-import com.revature.dto.NasaImageDTO;
+import com.revature.dto.nasaImages.ImageItems;
+import com.revature.dto.nasaImages.NasaImageDTO;
 import com.revature.models.nasaImages.FavNasaImage;
 import com.revature.models.nasaImages.NasaImage;
-import com.revature.repositories.FavoriteImageRepo;
-import com.revature.repositories.NasaImageRepo;
+import com.revature.repositories.nasaImages.FavoriteImageRepo;
+import com.revature.repositories.nasaImages.NasaImageRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -15,6 +15,9 @@ import org.springframework.web.reactive.function.client.WebClient;
 import java.util.*;
 
 
+/**
+ * Service layer which handles request concerning NASA images.
+ */
 @Service
 @EnableScheduling
 public class NasaImageService {
@@ -24,12 +27,14 @@ public class NasaImageService {
     private int count = 0;
     private int old_count = 0;
     private int prev_i;
+    //search terms to search the NASA API for.  represents image categories.
     private final List<String> search_terms = Collections.unmodifiableList(Arrays.asList
             (
                 "apollo","gemini","space","planets","rocket",
                 "solar system","satellites","galaxies","space shuttle"
             ));
 
+    //Keywords to filter out with images retrieved via teh NASA API.
     private final List<String> filter_terms = Collections.unmodifiableList(Arrays.asList
             (
                 "groundbreaking","induction","hall of fame","stem","STEM","Inductee","teacher training",
@@ -47,8 +52,7 @@ public class NasaImageService {
         this.fav_image_repo = fav_image_repo;
     }
 
-
-
+    //if image contains any of the keywords in the filter list then return true so it can be discarded.
     private boolean checkContainsKeyword(final List<String> keywords) {
         if(keywords != null) {
              return ((keywords.size() == 1)? Arrays.asList(keywords.get(0).split(",")) : keywords)
@@ -65,6 +69,7 @@ public class NasaImageService {
         return checkString(image.getDescription()) && checkString(image.getTitle()) && checkString(image.getLink());
     }
 
+    //parse the DTO into a List of NASA image objects.
     private List<NasaImage> parseImageDTOIntoNasaImageObjectList(final NasaImageDTO dto) {
         final List<NasaImage> images = new LinkedList<>();
         for(ImageItems item: dto.getCollection().getItems()) {
@@ -82,6 +87,7 @@ public class NasaImageService {
             return images;
     }
 
+    //get a random search term which doesn't match the previous search term used.
     private String getRandSearchTerm() {
         int i;
         do {
@@ -96,6 +102,8 @@ public class NasaImageService {
         final String url = "https://images-api.nasa.gov/search?q=" + search_term + "&media_type=image&page=15";
         final NasaImageDTO dto = WebClient.create(url).get().retrieve().bodyToMono(NasaImageDTO.class).blockOptional().orElseThrow(RuntimeException::new);
         final List<NasaImage> images = parseImageDTOIntoNasaImageObjectList(dto);
+
+        //if less than ten results then start over.
         if(images.size() > 10) {
             old_count = count;
             return images;
@@ -107,6 +115,7 @@ public class NasaImageService {
 
     }
 
+    //once a day refresh the database with new images from the NASA API.
    @Scheduled(fixedRate = 86400000)
     public void setCollection() {
         nasa_image_repo.resetCounter();
@@ -114,6 +123,7 @@ public class NasaImageService {
         count = 0;
         old_count = 0;
         prev_i = -1;
+        final List<NasaImage> images = new ArrayList<>();
         for (int i = 0; i < 2; i++) {
             nasa_image_repo.saveAll(getListOfImages());
         }
@@ -122,7 +132,6 @@ public class NasaImageService {
     public NasaImage getImage() {
         return nasa_image_repo.findById(rand.nextInt( count - 1) + 1).orElseThrow(RuntimeException::new);
     }
-
 
     private boolean checkForImageFavorite(final String url) {
         List<FavNasaImage> favorites = fav_image_repo.findByUrl(url);

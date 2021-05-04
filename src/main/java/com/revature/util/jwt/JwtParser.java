@@ -1,7 +1,7 @@
 package com.revature.util.jwt;
 
 import com.revature.Exceptions.InvalidRequestException;
-import com.revature.dto.PrincipalDTO;
+import com.revature.dto.users.PrincipalDTO;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +9,9 @@ import org.springframework.stereotype.Component;
 
 import javax.servlet.http.HttpServletRequest;
 
+/**
+ * Class which parses JWT to get username.
+ */
 @Component
 public class JwtParser {
 

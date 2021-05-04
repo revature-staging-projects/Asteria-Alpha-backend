@@ -1,4 +1,4 @@
-package com.revature.repositories;
+package com.revature.repositories.users;
 
 import com.revature.models.users.User;
 import org.springframework.data.jpa.repository.Modifying;
@@ -9,6 +9,9 @@ import org.springframework.stereotype.Repository;
 import javax.transaction.Transactional;
 import java.util.List;
 
+/**
+ * Repository to handle storing and retrieving user information to/from the database
+ */
 @Repository
 public interface UserRepo extends CrudRepository<User,Integer> {
 

@@ -1,6 +1,6 @@
 package com.revature.controllers;
 
-import com.revature.dto.PrincipalDTO;
+import com.revature.dto.users.PrincipalDTO;
 import com.revature.models.news.FavNews;
 import com.revature.models.news.NewsObject;
 import com.revature.service.NewsService;
@@ -13,6 +13,9 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
+/**
+ * Controller for handling request concerning news stories.
+ */
 @RestController
 public class NewsController {
 
@@ -26,6 +29,10 @@ public class NewsController {
     }
 
 
+    /**
+     * Method to retrieve every news story in teh database.
+     * @return
+     */
     @GetMapping(path = "/news",produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.I_AM_A_TEAPOT)
     public List<NewsObject> getAllNews() {
@@ -33,6 +40,11 @@ public class NewsController {
     }
 
 
+    /**
+     * Method to add a news story to a user's favorites.
+     * @param url url of the news story.
+     * @param request holds JWT which is used to identify the user.
+     */
     @PutMapping(path = "/addfavoritearticle")
     @ResponseStatus(value = HttpStatus.I_AM_A_TEAPOT)
     public void addArticleToFavorites(@RequestParam(name = "url") final String url, final HttpServletRequest request) {
@@ -42,6 +54,11 @@ public class NewsController {
 
     }
 
+    /**
+     * Method which is used to retrieve every article favorited by a user.
+     * @param request holds JWT which is used to identify the user.
+     * @return List of every article favorited by a user.
+     */
     @GetMapping(path = "/getnewsfavorites")
     @ResponseStatus(value = HttpStatus.I_AM_A_TEAPOT)
     public List<FavNews> getUserFavoriteArticles(final HttpServletRequest request) {

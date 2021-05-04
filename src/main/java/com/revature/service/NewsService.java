@@ -3,8 +3,8 @@ package com.revature.service;
 import com.revature.dto.NewsDTO;
 import com.revature.models.news.FavNews;
 import com.revature.models.news.NewsObject;
-import com.revature.repositories.FavArticleRepo;
-import com.revature.repositories.NewsRepo;
+import com.revature.repositories.newsArticles.FavArticleRepo;
+import com.revature.repositories.newsArticles.NewsRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
@@ -12,11 +12,16 @@ import org.springframework.web.reactive.function.client.WebClient;
 
 import java.util.*;
 
+/**
+ * Service layer to handle request concerning news articles.
+ */
 @Service
 public class NewsService {
 
     private final NewsRepo news_repo;
     private final FavArticleRepo fav_repo;
+
+    //search terms to user with the news api. searches articles matching these terms.
     private final List<String> search_terms = Collections.unmodifiableList(Arrays.asList("Nasa","Astronomy"));
 
     @Autowired
@@ -24,8 +29,6 @@ public class NewsService {
         this.news_repo = news_repo;
         this.fav_repo  = fav_repo;
     }
-
-
 
     private NewsObject[] getNewsArticles(final String search_term) {
         final String url ="https://contextualwebsearch-websearch-v1.p.rapidapi.com/api/search/NewsSearchAPI";
@@ -48,6 +51,7 @@ public class NewsService {
                 .blockOptional().orElseThrow(RuntimeException::new).getValue();
     }
 
+    //once a day refresh database with fresh articles from the news API.
     @Scheduled(fixedRate = 86400000)
     public void addArticlesToDB() {
         news_repo.truncateDB();

@@ -1,13 +1,18 @@
-package com.revature.repositories;
+package com.revature.repositories.newsArticles;
 
 import com.revature.models.news.FavNews;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.stereotype.Repository;
 
 import javax.transaction.Transactional;
 import java.util.List;
 
+/**
+ * Repository to handle reading/writing data to/from database concerning favorited news articles.
+ */
+@Repository
 public interface FavArticleRepo extends CrudRepository<FavNews,Integer> {
 //TODO change these values
     @Query(value = "select fav.id,fav.title,fav.snippet,fav.url,fav.thumbnail_url from Fav_Article as fav \n" +

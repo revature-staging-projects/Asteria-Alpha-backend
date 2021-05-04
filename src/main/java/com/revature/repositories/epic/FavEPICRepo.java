@@ -1,4 +1,4 @@
-package com.revature.repositories;
+package com.revature.repositories.epic;
 
 import com.revature.models.epicImages.FavEpicImage;
 import org.springframework.data.jpa.repository.Modifying;
@@ -9,6 +9,9 @@ import org.springframework.stereotype.Repository;
 import javax.transaction.Transactional;
 import java.util.List;
 
+/**
+ * Repository to handle writing to and retrieving from the database holding EPIc image data for all EPIC images which a user has favorited.
+ */
 @Repository
 public interface FavEPICRepo extends CrudRepository<FavEpicImage,Integer> {
 

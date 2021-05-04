@@ -1,12 +1,15 @@
 package com.revature.util.jwt;
 
-import com.revature.dto.PrincipalDTO;
+import com.revature.dto.users.PrincipalDTO;
 import io.jsonwebtoken.Jwts;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.Date;
 
+/**
+ * Class which generates a JWT for a given user.
+ */
 @Component
 public class JwtGenerator {
 

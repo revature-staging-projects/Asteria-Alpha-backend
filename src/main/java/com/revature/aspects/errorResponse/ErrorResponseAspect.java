@@ -9,6 +9,9 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
+/**
+ * Aspect to handle error response.
+ */
 @Component
 @RestControllerAdvice
 public class ErrorResponseAspect {
@@ -34,12 +37,6 @@ public class ErrorResponseAspect {
     @ExceptionHandler
     @ResponseStatus(HttpStatus.NOT_FOUND)
     public ErrorResponseDTO handleNoSuchUser(final NoSuchUserException e) {
-        return response_factory.generateErrorResponse(HttpStatus.NOT_FOUND);
-    }
-
-    @ExceptionHandler
-    @ResponseStatus(HttpStatus.NOT_FOUND)
-    public ErrorResponseDTO handleNoUserFound(final NoUserFoundException e) {
         return response_factory.generateErrorResponse(HttpStatus.NOT_FOUND);
     }
 

@@ -2,8 +2,8 @@ package com.revature.service;
 
 import com.revature.models.epicImages.EPICImage;
 import com.revature.models.epicImages.FavEpicImage;
-import com.revature.repositories.EPICRepo;
-import com.revature.repositories.FavEPICRepo;
+import com.revature.repositories.epic.EPICRepo;
+import com.revature.repositories.epic.FavEPICRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -13,6 +13,9 @@ import org.springframework.web.reactive.function.client.WebClient;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * Service layer to handle request concerning EPIC images.
+ */
 @Service
 public class EPICService {
 
@@ -29,6 +32,7 @@ public class EPICService {
         return epic_repo.findById(1).orElseThrow(RuntimeException::new);
     }
 
+    //once a day refresh the database with current metadata form teh EPIC API.
     @Scheduled(fixedRate = 86400000)
     public void getDailyImage() {
         final String url = "https://epic.gsfc.nasa.gov/api/natural";

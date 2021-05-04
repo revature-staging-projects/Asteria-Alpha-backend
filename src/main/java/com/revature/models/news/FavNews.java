@@ -4,6 +4,9 @@ import com.revature.util.converter.ThumbnailConverter;
 
 import javax.persistence.*;
 
+/**
+ * POJO which stores information into the database of an article which has been favorited by a user.
+ */
 @Entity
 @Table(name = "Fav_article")
 public class FavNews {

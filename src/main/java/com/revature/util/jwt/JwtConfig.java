@@ -7,6 +7,9 @@ import javax.crypto.spec.SecretKeySpec;
 import javax.xml.bind.DatatypeConverter;
 import java.security.Key;
 
+/**
+ * Class to set up and configure the JWT.
+ */
 @Component
 public class JwtConfig {
 

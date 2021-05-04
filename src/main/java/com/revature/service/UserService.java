@@ -3,10 +3,10 @@ package com.revature.service;
 import com.revature.Exceptions.AlreadyExistingUserException;
 import com.revature.Exceptions.InvalidRequestException;
 import com.revature.Exceptions.ResourceNotFoundException;
-import com.revature.dto.Credentials;
-import com.revature.dto.PrincipalDTO;
+import com.revature.dto.users.Credentials;
+import com.revature.dto.users.PrincipalDTO;
 import com.revature.models.users.User;
-import com.revature.repositories.UserRepo;
+import com.revature.repositories.users.UserRepo;
 import com.revature.util.encryption.PasswordEncryption;
 import com.revature.util.jwt.JwtGenerator;
 import com.revature.util.jwt.JwtParser;
@@ -17,18 +17,19 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * Service layer to handle requests concerning users of the site.
+ */
 @Service
 public class UserService {
 
     private final UserRepo user_repo;
-    private final JwtParser parser;
     private final JwtGenerator generator;
     private final PasswordEncryption encryption;
 
     @Autowired
-    public UserService(final PasswordEncryption encryption,final UserRepo user_repo,final JwtParser parser, final JwtGenerator generator) {
+    public UserService(final PasswordEncryption encryption,final UserRepo user_repo, final JwtGenerator generator) {
         this.user_repo  = user_repo;
-        this.parser     = parser;
         this.generator  = generator;
         this.encryption = encryption;
     }

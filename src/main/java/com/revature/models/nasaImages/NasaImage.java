@@ -4,6 +4,9 @@ package com.revature.models.nasaImages;
 import javax.persistence.*;
 import java.util.Objects;
 
+/**
+ * POJO which stores NASA image data inside of database.
+ */
 @Entity
 @Table(name = "Image")
 public class NasaImage {

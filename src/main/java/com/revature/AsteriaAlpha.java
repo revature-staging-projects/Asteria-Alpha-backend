@@ -11,6 +11,9 @@ import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 
+/**
+ * Driver class for Asteria-Alpha backend spring boot application.
+ */
 @SpringBootApplication
 @EnableSwagger2
 public class AsteriaAlpha {
@@ -18,6 +21,7 @@ public class AsteriaAlpha {
         SpringApplication.run(AsteriaAlpha.class, args);
     }
 
+    //needed for swagger.
     @Bean
     public Docket api() {
         return new Docket(DocumentationType.SWAGGER_2)
