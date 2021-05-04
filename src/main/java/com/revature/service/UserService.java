@@ -5,7 +5,7 @@ import com.revature.Exceptions.InvalidRequestException;
 import com.revature.Exceptions.ResourceNotFoundException;
 import com.revature.dto.Credentials;
 import com.revature.dto.PrincipalDTO;
-import com.revature.models.User;
+import com.revature.models.users.User;
 import com.revature.repositories.UserRepo;
 import com.revature.util.encryption.PasswordEncryption;
 import com.revature.util.jwt.JwtGenerator;

@@ -1,6 +1,6 @@
 package com.revature.util.converter;
 
-import com.revature.models.Thumbnail;
+import com.revature.models.news.Thumbnail;
 
 import javax.persistence.AttributeConverter;
 

@@ -3,7 +3,7 @@ package com.revature.controllers;
 import com.revature.Exceptions.NoSuchUserException;
 import com.revature.dto.Credentials;
 import com.revature.dto.PrincipalDTO;
-import com.revature.models.User;
+import com.revature.models.users.User;
 import com.revature.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

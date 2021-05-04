@@ -1,4 +1,4 @@
-package com.revature.models;
+package com.revature.models.epicImages;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 

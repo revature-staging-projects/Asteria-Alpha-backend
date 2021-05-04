@@ -1,8 +1,8 @@
 package com.revature.controllers;
 
 import com.revature.dto.PrincipalDTO;
-import com.revature.models.FavNews;
-import com.revature.models.NewsObject;
+import com.revature.models.news.FavNews;
+import com.revature.models.news.NewsObject;
 import com.revature.service.NewsService;
 import com.revature.util.jwt.JwtParser;
 import org.springframework.beans.factory.annotation.Autowired;

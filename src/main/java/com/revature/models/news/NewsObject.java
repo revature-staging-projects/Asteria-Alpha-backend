@@ -1,4 +1,4 @@
-package com.revature.models;
+package com.revature.models.news;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.revature.util.converter.ThumbnailConverter;
@@ -6,11 +6,12 @@ import com.revature.util.converter.ThumbnailConverter;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "Fav_article")
-public class FavNews {
+@Table(name = "Article")
+public class NewsObject {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @JsonIgnore
     private int id;
 
     @Column(name = "title")
@@ -66,5 +67,4 @@ public class FavNews {
     public void setId(final int id) {
         this.id = id;
     }
-
 }

@@ -1,8 +1,8 @@
 package com.revature.controllers;
 
 import com.revature.dto.PrincipalDTO;
-import com.revature.models.EPICImage;
-import com.revature.models.FavEpicImage;
+import com.revature.models.epicImages.EPICImage;
+import com.revature.models.epicImages.FavEpicImage;
 import com.revature.service.EPICService;
 import com.revature.util.jwt.JwtParser;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,7 +1,6 @@
 package com.revature.repositories;
 
-import com.revature.models.FavNasaImage;
-import com.revature.models.NasaImage;
+import com.revature.models.nasaImages.FavNasaImage;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;

@@ -2,8 +2,8 @@ package com.revature.service;
 
 import com.revature.dto.ImageItems;
 import com.revature.dto.NasaImageDTO;
-import com.revature.models.FavNasaImage;
-import com.revature.models.NasaImage;
+import com.revature.models.nasaImages.FavNasaImage;
+import com.revature.models.nasaImages.NasaImage;
 import com.revature.repositories.FavoriteImageRepo;
 import com.revature.repositories.NasaImageRepo;
 import org.springframework.beans.factory.annotation.Autowired;

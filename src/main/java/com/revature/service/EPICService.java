@@ -1,15 +1,12 @@
 package com.revature.service;
 
-import com.revature.models.EPICImage;
-import com.revature.models.FavEpicImage;
+import com.revature.models.epicImages.EPICImage;
+import com.revature.models.epicImages.FavEpicImage;
 import com.revature.repositories.EPICRepo;
 import com.revature.repositories.FavEPICRepo;
-import com.revature.repositories.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
-import org.springframework.web.reactive.function.client.WebClient;
 
 import java.util.List;
 import java.util.Optional;

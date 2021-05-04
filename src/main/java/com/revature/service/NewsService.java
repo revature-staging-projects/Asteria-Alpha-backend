@@ -1,9 +1,8 @@
 package com.revature.service;
 
-import com.revature.dto.NasaImageDTO;
 import com.revature.dto.NewsDTO;
-import com.revature.models.FavNews;
-import com.revature.models.NewsObject;
+import com.revature.models.news.FavNews;
+import com.revature.models.news.NewsObject;
 import com.revature.repositories.FavArticleRepo;
 import com.revature.repositories.NewsRepo;
 import org.springframework.beans.factory.annotation.Autowired;

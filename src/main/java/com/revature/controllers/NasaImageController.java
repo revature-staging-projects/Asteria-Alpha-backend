@@ -1,8 +1,8 @@
 package com.revature.controllers;
 
 import com.revature.dto.PrincipalDTO;
-import com.revature.models.FavNasaImage;
-import com.revature.models.NasaImage;
+import com.revature.models.nasaImages.FavNasaImage;
+import com.revature.models.nasaImages.NasaImage;
 import com.revature.service.NasaImageService;
 import com.revature.util.jwt.JwtParser;
 import org.springframework.beans.factory.annotation.Autowired;

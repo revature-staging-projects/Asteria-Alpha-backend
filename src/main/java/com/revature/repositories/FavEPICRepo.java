@@ -1,6 +1,6 @@
 package com.revature.repositories;
 
-import com.revature.models.FavEpicImage;
+import com.revature.models.epicImages.FavEpicImage;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;

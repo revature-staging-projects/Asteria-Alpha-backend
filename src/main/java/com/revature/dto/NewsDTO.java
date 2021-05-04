@@ -1,6 +1,6 @@
 package com.revature.dto;
 
-import com.revature.models.NewsObject;
+import com.revature.models.news.NewsObject;
 
 public class NewsDTO {
 

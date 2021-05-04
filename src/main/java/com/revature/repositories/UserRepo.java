@@ -1,6 +1,6 @@
 package com.revature.repositories;
 
-import com.revature.models.User;
+import com.revature.models.users.User;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
