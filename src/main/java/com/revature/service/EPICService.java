@@ -5,8 +5,10 @@ import com.revature.models.epicImages.FavEpicImage;
 import com.revature.repositories.EPICRepo;
 import com.revature.repositories.FavEPICRepo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
+import org.springframework.web.reactive.function.client.WebClient;
 
 import java.util.List;
 import java.util.Optional;
@@ -29,16 +31,16 @@ public class EPICService {
 
     @Scheduled(fixedRate = 86400000)
     public void getDailyImage() {
-//        final String url = "https://epic.gsfc.nasa.gov/api/natural";
-//        final EPICImage[] dto = WebClient.create(url)
-//                .get()
-//                .accept(MediaType.APPLICATION_JSON,MediaType.APPLICATION_XML)
-//                .retrieve()
-//                .bodyToMono(EPICImage[].class)
-//                .blockOptional().orElseThrow(RuntimeException::new);
-//        epic_repo.truncateDB();
-//        epic_repo.resetCounter();
-//        epic_repo.save(dto[0]);
+        final String url = "https://epic.gsfc.nasa.gov/api/natural";
+        final EPICImage[] dto = WebClient.create(url)
+                .get()
+                .accept(MediaType.APPLICATION_JSON,MediaType.APPLICATION_XML)
+                .retrieve()
+                .bodyToMono(EPICImage[].class)
+                .blockOptional().orElseThrow(RuntimeException::new);
+        epic_repo.truncateDB();
+        epic_repo.resetCounter();
+        epic_repo.save(dto[0]);
     }
 
     private boolean checkIfPresent(final EPICImage image) {
