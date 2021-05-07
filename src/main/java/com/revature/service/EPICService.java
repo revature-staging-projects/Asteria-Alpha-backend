@@ -10,6 +10,7 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -68,7 +69,7 @@ public class EPICService {
     }
 
     public List<FavEpicImage> getFavImages(final String username) {
-        return fav_epic_repo.getUserFavoriteImages(username);
+        return Collections.unmodifiableList(fav_epic_repo.getUserFavoriteImages(username));
     }
 
 }

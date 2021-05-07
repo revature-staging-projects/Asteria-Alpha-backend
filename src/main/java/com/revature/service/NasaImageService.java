@@ -84,7 +84,7 @@ public class NasaImageService {
                 }
             }
         }
-            return images;
+            return Collections.unmodifiableList(images);
     }
 
     //get a random search term which doesn't match the previous search term used.
@@ -134,8 +134,7 @@ public class NasaImageService {
     }
 
     private boolean checkForImageFavorite(final String url) {
-        List<FavNasaImage> favorites = fav_image_repo.findByUrl(url);
-        return favorites != null && favorites.size() > 0;
+        return Collections.unmodifiableList(fav_image_repo.findByUrl(url)).size() > 0;
     }
 
     public void addImageToFavorites(final String username,final String url) {
@@ -146,7 +145,7 @@ public class NasaImageService {
     }
 
     public List<FavNasaImage> getFavImage(final String username) {
-        return fav_image_repo.getUserFavoriteImages(username);
+        return Collections.unmodifiableList(fav_image_repo.getUserFavoriteImages(username));
     }
 
 }

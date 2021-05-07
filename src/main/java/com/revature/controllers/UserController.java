@@ -1,18 +1,19 @@
 package com.revature.controllers;
 
+import com.revature.Exceptions.InvalidRequestException;
 import com.revature.Exceptions.NoSuchUserException;
 import com.revature.dto.users.Credentials;
 import com.revature.dto.users.PrincipalDTO;
 import com.revature.models.users.User;
+import com.revature.service.EmailService;
 import com.revature.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.view.RedirectView;
 
+import javax.mail.MessagingException;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
@@ -22,11 +23,14 @@ import javax.validation.Valid;
 @RestController
 public class UserController {
 
+    private final EmailService email_service;
     private final UserService user_service;
+    private final String WEB_URL = System.getenv("WEB_URL");
 
     @Autowired
-    public UserController(final UserService user_service) {
-        this.user_service = user_service;
+    public UserController(final UserService user_service,final EmailService email_service) {
+        this.user_service  = user_service;
+        this.email_service = email_service;
     }
 
     /**
@@ -48,10 +52,16 @@ public class UserController {
      */
     @PostMapping(path = "/register", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.I_AM_A_TEAPOT)
-    public void registerNewUser(@RequestBody final User new_user) {
+    public void registerNewUser(@RequestBody final User new_user) throws MessagingException {
         user_service.registerNewUser(new_user);
+        email_service.sendEmail(new_user);
     }
 
-    //TODO set up email for verification
+    @GetMapping(path = "/confirmation/{username}")
+    public RedirectView confirmUserAccount(@PathVariable String username, HttpServletResponse response) {
+        user_service.confirmUser(username,response);
+        return new RedirectView(WEB_URL);
+
+    }
 
 }

@@ -13,7 +13,10 @@ import com.revature.util.jwt.JwtParser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -46,8 +49,8 @@ public class UserService {
         if(checkEmptyString(creds.getUsername()) || checkEmptyString(creds.getPassword())) {
             throw new InvalidRequestException("username and password cannot be empty or null.");
         }
-        final List<User> users = user_repo.findByUsername(creds.getUsername());
-        if( users == null || users.size() < 1) {
+        final List<User> users = Collections.unmodifiableList(user_repo.findByUsername(creds.getUsername()));
+        if( users.size() < 1) {
             throw new ResourceNotFoundException("no user found.");
         }
         final User user = users.get(0);
@@ -81,8 +84,8 @@ public class UserService {
 
 
     public void registerNewUser(final User  new_user) {
-        final List<User> users = user_repo.findByUsername(new_user.getUsername());
-        if(users == null || users.size() < 1) {
+        final List<User> users = Collections.unmodifiableList(user_repo.findByUsername(new_user.getUsername()));
+        if(users.size() < 1) {
             new_user.setPassword(encryption.encryptString(new_user.getPassword()));
             user_repo.save(new_user);
             user_repo.addToVerifiedTable(new_user.getUsername());
@@ -91,5 +94,14 @@ public class UserService {
             throw new AlreadyExistingUserException("sorry, but: " + new_user.getUsername() + " already exists.");
         }
     }
+
+    public void confirmUser(final String username, final HttpServletResponse response) {
+        final List<User> existing_user = Collections.unmodifiableList(user_repo.findByUsername(username));
+        if (existing_user.size() < 1 ) {
+            throw new InvalidRequestException("No user with that username found.");
+        }
+        user_repo.updateVerified(existing_user.get(0).getId());
+    }
+
 
 }

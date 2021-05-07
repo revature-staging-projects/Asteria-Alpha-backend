@@ -67,13 +67,12 @@ public class NewsService {
     public List<NewsObject> getAllNews() {
         final List<NewsObject> news = new ArrayList<>();
         news_repo.findAll().forEach(news::add);
-        return news;
+        return Collections.unmodifiableList(news);
     }
 
 
     private boolean checkIfExists(final String url) {
-        final List<FavNews> news = fav_repo.findByUrl(url);
-        return news != null && news.size() > 0;
+        return Collections.unmodifiableList(fav_repo.findByUrl(url)).size() > 0;
     }
 
     public void addArticleToFavorites(final String url, final String username) {
@@ -84,7 +83,7 @@ public class NewsService {
     }
 
     public List<FavNews> getUserFavorites(final String username) {
-        return fav_repo.getUserFavoriteArticles(username);
+        return Collections.unmodifiableList(fav_repo.getUserFavoriteArticles(username));
     }
 
 }
