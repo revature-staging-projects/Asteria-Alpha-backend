@@ -17,7 +17,7 @@ public class EmailService {
     private final JavaMailSender javaMailSender;
     //address of backend to use for hitting the confirm user method.
     private final String APP_URL       = System.getenv("APP_URL");
-    private final String EMAIL_ADDRESS = System.getenv("email_address");
+    private final String EMAIL_ADDRESS = System.getenv("email_username");
 
     @Autowired
     public EmailService(final JavaMailSender javaMailSender){
