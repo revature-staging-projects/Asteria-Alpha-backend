@@ -15,6 +15,7 @@ import org.springframework.web.servlet.view.RedirectView;
 
 import javax.mail.MessagingException;
 import javax.servlet.http.HttpServletResponse;
+import javax.transaction.Transactional;
 import javax.validation.Valid;
 
 /**
@@ -53,6 +54,7 @@ public class UserController {
      */
     @PostMapping(path = "/register", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.I_AM_A_TEAPOT)
+    @Transactional
     public void registerNewUser(@RequestBody final User new_user) throws MessagingException {
         user_service.registerNewUser(new_user);
         email_service.sendEmail(new_user);
