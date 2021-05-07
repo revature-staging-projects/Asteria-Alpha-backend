@@ -25,6 +25,7 @@ public class UserController {
 
     private final EmailService email_service;
     private final UserService user_service;
+    //address of front end to redirect to.
     private final String WEB_URL = System.getenv("WEB_URL");
 
     @Autowired

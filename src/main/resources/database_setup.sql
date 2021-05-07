@@ -88,3 +88,9 @@ create table Image(
 	constraint img_pk primary key(id)
 );
 
+
+truncate table users cascade;
+
+select * from users;
+
+select * from verified v ;

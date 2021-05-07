@@ -4,17 +4,18 @@ import com.revature.models.users.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.scheduling.annotation.Async;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import javax.mail.Message;
 import javax.mail.MessagingException;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
-@Component
+@Service
 public class EmailService {
 
     private final JavaMailSender javaMailSender;
+    //address of backend to use for hitting the confirm user method.
     private final String APP_URL       = System.getenv("APP_URL");
     private final String EMAIL_ADDRESS = System.getenv("email_address");
 
@@ -33,7 +34,7 @@ public class EmailService {
         mailMessage.setRecipient(Message.RecipientType.TO, new InternetAddress(user.getEmail()));
         mailMessage.setSubject("Complete Registration For Asteria-Alpha.");
         mailMessage.setFrom(EMAIL_ADDRESS);
-        final String confirm_url = String.format("%s/users/confirmation/%s", APP_URL, user.getUsername());
+        final String confirm_url = String.format("%s/confirmation/%s", APP_URL, user.getUsername());
         final String html        = String.format(
                 "<div style=\"text-align:center;border:3px solid black;margin-left:25rem;margin-right:25rem;margin-top:25rem\">" +
                         "<h3>Thank you for signing up for Asteria-Alpha, %s!</h3>" +
