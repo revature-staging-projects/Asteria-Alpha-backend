@@ -95,7 +95,7 @@ public class UserService {
         }
     }
 
-    public void confirmUser(final String username, final HttpServletResponse response) {
+    public void confirmUser(final String username) {
         final List<User> existing_user = Collections.unmodifiableList(user_repo.findByUsername(username));
         if (existing_user.size() < 1 ) {
             throw new InvalidRequestException("No user with that username found.");

@@ -57,9 +57,14 @@ public class UserController {
         email_service.sendEmail(new_user);
     }
 
+    /**
+     * Method to confirm a user's new account via email.
+     * @param username username to confirm.
+     * @return redirect user to homepage.
+     */
     @GetMapping(path = "/confirmation/{username}")
-    public RedirectView confirmUserAccount(@PathVariable String username, HttpServletResponse response) {
-        user_service.confirmUser(username,response);
+    public RedirectView confirmUserAccount(@PathVariable final String username) {
+        user_service.confirmUser(username);
         return new RedirectView(WEB_URL);
 
     }
