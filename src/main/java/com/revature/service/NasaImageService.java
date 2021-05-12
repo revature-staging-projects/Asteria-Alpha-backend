@@ -30,8 +30,8 @@ public class NasaImageService {
     //search terms to search the NASA API for.  represents image categories.
     private final List<String> search_terms = Collections.unmodifiableList(Arrays.asList
             (
-                "apollo","gemini","space","planets","rocket",
-                "solar system","satellites","galaxies","space shuttle"
+                "apollo","gemini","space","planets","rocket","space station",
+                "solar system","satellites","galaxies","space shuttle","comet"
             ));
 
     //Keywords to filter out with images retrieved via teh NASA API.

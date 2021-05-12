@@ -91,6 +91,26 @@ create table Image(
 
 truncate table users cascade;
 
+truncate table verified cascade;
+
 select * from users;
 
+ALTER SEQUENCE users_id_seq RESTART WITH 1;
+
 select * from verified v ;
+
+truncate table fav_article ;
+
+ALTER SEQUENCE fav_article_id_seq RESTART WITH 1;
+
+select * from fav_article fa ;
+
+truncate table fav_article_ref ;
+
+truncate table fav_image cascade;
+
+ALTER SEQUENCE fav_image_id_seq RESTART WITH 1;
+
+truncate table fav_img_ref ;
+
+select * from fav_image fa ;
