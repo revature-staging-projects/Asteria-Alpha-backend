@@ -86,7 +86,7 @@ public class NasaImageService {
                 }
             }
         }
-            return Collections.unmodifiableList(images);
+        return Collections.unmodifiableList(images);
     }
 
     //get a random search term which doesn't match the previous search terms used.
@@ -104,7 +104,7 @@ public class NasaImageService {
         final String url = "https://images-api.nasa.gov/search?q=" + search_term + "&media_type=image&page=15";
         final NasaImageDTO dto = WebClient.create(url).get().retrieve().bodyToMono(NasaImageDTO.class).blockOptional().orElseThrow(RuntimeException::new);
         final List<NasaImage> images = parseImageDTOIntoNasaImageObjectList(dto);
-        if(images.size() > 10) {
+        if(images.size() >= 10) {
             old_count = count;
             return images;
         }
@@ -137,9 +137,11 @@ public class NasaImageService {
     }
 
     public void addImageToFavorites(final String username,final String url) {
+        //if image isnt already in favorites database then add it.
         if(!checkForImageFavorite(url)) {
             fav_image_repo.addImageToFav(url);
         }
+        //update ref table to point user id to new favorite image id.
         fav_image_repo.updateFavoriteImageReferences(username,url);
     }
 

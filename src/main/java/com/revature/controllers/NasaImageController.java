@@ -40,7 +40,7 @@ public class NasaImageController {
     }
 
     /**
-     * MEthod to handle adding a NASA image to a user's favorites.
+     * Method to handle adding a NASA image to a user's favorites.
      * @param request Holds teh JWT which is used to identify a user.
      * @param url url of the NASA image to add ot favorites.
      */
@@ -53,7 +53,7 @@ public class NasaImageController {
     }
 
     /**
-     * MEthod to retrieve every NASA image which the current user has favorited.
+     * Method to retrieve every NASA image which the current user has favorited.
      * @param request hold the JWT which is used ot identify the user.
      * @return
      */
