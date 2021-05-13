@@ -31,7 +31,8 @@ public class NasaImageService {
             (
                 "apollo","gemini","space","planets","rocket","space station",
                 "solar system","satellites","galaxies","space shuttle","comet",
-                "Mercury Project","nebula","rover","soyuz","Lunar Module"
+                "Mercury Project","nebula","rover","soyuz","Lunar Module","APOLLO SPACECRAFT",
+                "LAUNCHING SITES"
             ));
 
     //Keywords to filter out with images retrieved via the NASA API.
