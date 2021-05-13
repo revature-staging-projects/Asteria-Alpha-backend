@@ -26,15 +26,15 @@ public class NasaImageService {
     private final FavoriteImageRepo fav_image_repo;
     private int count = 0;
     private int old_count = 0;
-    private int prev_i;
     //search terms to search the NASA API for.  represents image categories.
     private final List<String> search_terms = Collections.unmodifiableList(Arrays.asList
             (
                 "apollo","gemini","space","planets","rocket","space station",
-                "solar system","satellites","galaxies","space shuttle","comet"
+                "solar system","satellites","galaxies","space shuttle","comet",
+                "Mercury Project","nebula","rover","soyuz","Lunar Module"
             ));
 
-    //Keywords to filter out with images retrieved via teh NASA API.
+    //Keywords to filter out with images retrieved via the NASA API.
     private final List<String> filter_terms = Collections.unmodifiableList(Arrays.asList
             (
                 "groundbreaking","induction","hall of fame","stem","STEM","Inductee","teacher training",
@@ -55,6 +55,7 @@ public class NasaImageService {
     //if image contains any of the keywords in the filter list then return true so it can be discarded.
     private boolean checkContainsKeyword(final List<String> keywords) {
         if(keywords != null) {
+            //if keywords is an array, then use it as such, if it is a single string then split by comma
              return ((keywords.size() == 1)? Arrays.asList(keywords.get(0).split(",")) : keywords)
                      .parallelStream().anyMatch(filter_terms::contains);
         }
@@ -87,32 +88,30 @@ public class NasaImageService {
             return Collections.unmodifiableList(images);
     }
 
-    //get a random search term which doesn't match the previous search term used.
-    private String getRandSearchTerm() {
+    //get a random search term which doesn't match the previous search terms used.
+    private String getRandSearchTerm(final List<Integer> prev_i) {
         int i;
         do {
             i = rand.nextInt(search_terms.size());
-        }while(i == prev_i);
-        prev_i = i;
+        }while(prev_i.contains(i));
+        prev_i.add(i);
         return search_terms.get(i);
     }
 
-    private List<NasaImage> getListOfImages() {
-        final String search_term = getRandSearchTerm();
+    private List<NasaImage> getListOfImages(final List<Integer> prev_i) {
+        final String search_term = getRandSearchTerm(prev_i);
         final String url = "https://images-api.nasa.gov/search?q=" + search_term + "&media_type=image&page=15";
         final NasaImageDTO dto = WebClient.create(url).get().retrieve().bodyToMono(NasaImageDTO.class).blockOptional().orElseThrow(RuntimeException::new);
         final List<NasaImage> images = parseImageDTOIntoNasaImageObjectList(dto);
-
-        //if less than ten results then start over.
         if(images.size() > 10) {
             old_count = count;
             return images;
         }
+        //if less than ten results then start over.
         else {
             count = old_count;
-            return getListOfImages();
+            return getListOfImages(prev_i);
         }
-
     }
 
     //once a day refresh the database with new images from the NASA API.
@@ -122,10 +121,9 @@ public class NasaImageService {
         nasa_image_repo.truncateDB();
         count = 0;
         old_count = 0;
-        prev_i = -1;
-        final List<NasaImage> images = new ArrayList<>();
-        for (int i = 0; i < 2; i++) {
-            nasa_image_repo.saveAll(getListOfImages());
+        final List<Integer> prev_i = new ArrayList<>();
+        for (int i = 0; i < 3; i++) {
+            nasa_image_repo.saveAll(getListOfImages(prev_i));
         }
     }
 
@@ -134,7 +132,7 @@ public class NasaImageService {
     }
 
     private boolean checkForImageFavorite(final String url) {
-        return Collections.unmodifiableList(fav_image_repo.findByUrl(url)).size() > 0;
+        return fav_image_repo.findByUrl(url).size() > 0;
     }
 
     public void addImageToFavorites(final String username,final String url) {
